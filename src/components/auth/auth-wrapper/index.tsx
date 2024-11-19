@@ -3,6 +3,7 @@ import AuthForm from "@/components/auth/auth-form";
 import SocialConnect from "@/components/auth/social-connect";
 import BackButton from "@/components/common/buttons/back-button";
 import { buttonVariants } from "@/components/ui/button";
+import { ROUTES } from "@/lib/constants/routes";
 import { cn } from "@/lib/utils";
 import * as Clerk from "@clerk/elements/common";
 import * as SignIn from "@clerk/elements/sign-in";
@@ -65,7 +66,7 @@ export default function AuthWrapper({
                 <p className="text-sm text-black-100 dark:text-white">
                   Forgot Password?{" "}
                   <Link
-                    href="/reset-password"
+                    href={ROUTES.resetPassword}
                     className="font-medium text-black-100 dark:text-white"
                   >
                     Reset

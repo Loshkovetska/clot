@@ -2,26 +2,27 @@ import HomeIcon from "@/components/icons/home";
 import NotificationIcon from "@/components/icons/notifications";
 import OrdersIcon from "@/components/icons/orders";
 import ProfileIcon from "@/components/icons/profile";
+import { ROUTES } from "@/lib/constants/routes";
 
 export const NAVBAR_ITEMS = [
   {
     id: 1,
     icon: <HomeIcon />,
-    path: "/",
+    path: ROUTES.home,
   },
   {
     id: 2,
     icon: <NotificationIcon />,
-    path: "/notifications",
+    path: ROUTES.notifications,
   },
   {
     id: 3,
     icon: <OrdersIcon />,
-    path: "/orders",
+    path: ROUTES.orders,
   },
   {
     id: 4,
     icon: <ProfileIcon />,
-    path: "/profile",
+    path: ROUTES.profile,
   },
 ];

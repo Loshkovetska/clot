@@ -12,6 +12,7 @@ type ProductType = {
   rate: number;
   totalReviews: number;
   gender: "male" | "female";
+  category_id: string;
 };
 
 type CombinationType = {
@@ -35,3 +36,5 @@ type ProductReviewType = {
   date: Date;
   product_id: string;
 };
+
+export type { CombinationType, ProductReviewType, ProductType };
