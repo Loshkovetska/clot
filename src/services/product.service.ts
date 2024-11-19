@@ -15,6 +15,11 @@ class ProductServiceClass {
     });
     return response.data;
   }
+
+  async getProductBySlug(slug: string): Promise<ProductType> {
+    const response = await this.routeClient.get(`products/${slug}`);
+    return response.data;
+  }
 }
 
 const ProductService = new ProductServiceClass();
