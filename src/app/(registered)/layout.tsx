@@ -5,7 +5,11 @@ import { PropsWithChildren } from "react";
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <>
-      <Header />
+      <Header
+        showUser
+        funcButton={{ type: "cart", href: "/cart" }}
+        title="Clot"
+      />
       <div className="w-full max-w-[1248px] mx-auto">{children}</div>
       <NavBar />
     </>

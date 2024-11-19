@@ -1,23 +1,20 @@
 "use client";
 import AuthForm from "@/components/auth/auth-form";
 import SocialConnect from "@/components/auth/social-connect";
-import ChevronLeftIcon from "@/components/icons/chevron";
-import { Button, buttonVariants } from "@/components/ui/button";
+import BackButton from "@/components/common/buttons/back-button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import * as Clerk from "@clerk/elements/common";
 import * as SignIn from "@clerk/elements/sign-in";
 import * as SignUp from "@clerk/elements/sign-up";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useCallback } from "react";
 
 export default function AuthWrapper({
   type = "sign-in",
 }: {
   type?: "sign-in" | "sign-up" | "password-reset";
 }) {
-  const router = useRouter();
   const isSignIn = type === "sign-in";
   const isReset = type === "password-reset";
   const Component = isSignIn ? SignIn : SignUp;
@@ -27,7 +24,6 @@ export default function AuthWrapper({
       ? "Forgot Password"
       : "Create Account";
 
-  const goBack = useCallback(() => router.back(), []);
   return (
     <Component.Root>
       <Component.Step
@@ -37,16 +33,7 @@ export default function AuthWrapper({
           isSignIn ? "pt-[120px]" : "pt-16"
         )}
       >
-        {!isSignIn && (
-          <Button
-            onClick={goBack}
-            variant="light"
-            size="icon"
-            className="self-start mb-5"
-          >
-            <ChevronLeftIcon />
-          </Button>
-        )}
+        {!isSignIn && <BackButton />}
         <h1 className="text-black-100 dark:text-white mb-8 text-3xl self-start">
           {TITLE}
         </h1>
