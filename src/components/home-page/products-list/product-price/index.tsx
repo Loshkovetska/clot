@@ -8,13 +8,14 @@ export default function ProductPrice({
   discount: number;
 }) {
   const newPrice = useMemo(() => price * (discount / 100), [price, discount]);
-
   return (
     <div className="flex items-center gap-2">
-      <span className="text-md font-bold">${newPrice || price}</span>
-      {newPrice && (
+      <span className="text-md font-bold">
+        ${(newPrice || price).toFixed(2)}
+      </span>
+      {newPrice > 0 && (
         <span className="text-md line-through font-medium text-black-50">
-          ${price}
+          ${price.toFixed(2)}
         </span>
       )}
     </div>

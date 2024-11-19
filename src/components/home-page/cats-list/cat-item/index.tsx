@@ -16,12 +16,12 @@ export default function CatItem({ title, imageUrl, slug }: CatItemPropType) {
     >
       <div className="size-14 rounded-full overflow-hidden relative">
         <Image
-          src={imageUrl ?? ""}
+          src={`${process.env.NEXT_PUBLIC_SUPABASE_STORAGE}/${imageUrl ?? ""}`}
           alt="cat-item"
           fill
         />
       </div>
-      <h3 className="text-lg">{title}</h3>
+      <h3 className="text-sm">{title}</h3>
     </Link>
   );
 }

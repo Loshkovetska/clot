@@ -25,10 +25,10 @@ export default function Header({
   return (
     <header
       className={cn(
-        "w-full flex items-center justify-between py-4 px-5 fixed left-0 right-0 top-0 bg-white",
+        "w-full flex items-center justify-between py-4 px-5 fixed left-0 right-0 top-0 bg-white z-[1000]",
         {
           "justify-center": !showUser && !funcButton,
-          "h-16 max-w-[1248px]": !showUser || (!showUser && funcButton),
+          "h-16": !showUser || (!showUser && funcButton),
         },
         className
       )}

@@ -17,7 +17,7 @@ export default function ProductCard(
   const addProductToFav = useCallback(() => {}, [id]);
   return (
     <Link
-      href={`${ROUTES.product}/${slug}`}
+      href={`${ROUTES.products}/${slug}`}
       className={cn(
         "w-full flex flex-col bg-light-100 pb-4 rounded-md overflow-hidden max-w-[156px]",
         className
@@ -25,14 +25,15 @@ export default function ProductCard(
     >
       <div className="w-full h-[220px] mb-2 relative">
         <Image
-          src={imageUrls?.[0] ?? ""}
-          alt="product"
+          src={`${process.env.NEXT_PUBLIC_SUPABASE_STORAGE}/${imageUrls?.[0] ?? ""}`}
+          alt={title}
           fill
+          className="object-contain"
         />
         <Button
           onClick={addProductToFav}
           variant="transparent"
-          className="absolute top-2 right-3"
+          className="absolute top-2 right-3 !h-auto"
         >
           <HeartIcon />
         </Button>
