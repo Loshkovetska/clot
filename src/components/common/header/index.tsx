@@ -2,10 +2,7 @@
 import BackButton from "@/components/common/buttons/back-button";
 import FuncButton from "@/components/common/buttons/func-button";
 import HeaderUser from "@/components/common/header/header-user";
-import { ROUTES } from "@/lib/constants/routes";
 import { cn } from "@/lib/utils";
-import { useUser } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
 
 type HeaderPropType = {
   title?: string;
@@ -25,10 +22,6 @@ export default function Header({
   className,
   backButtonClassName,
 }: HeaderPropType) {
-  const user = useUser();
-
-  if (!user.isSignedIn && showUser) return redirect(ROUTES.signIn);
-
   return (
     <header
       className={cn(
@@ -40,7 +33,7 @@ export default function Header({
         className
       )}
     >
-      {showUser && <HeaderUser imageUrl={user?.user?.imageUrl} />}
+      {showUser && <HeaderUser />}
       {!showUser && (
         <BackButton
           className={cn("absolute left-5 mb-0", backButtonClassName)}
