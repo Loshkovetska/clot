@@ -25,8 +25,8 @@ export default function BottomBar({
         </Link>
       )}
       {action && (
-        <div className="w-full rounded-[24px] bg-primary flex items-center h-14">
-          <span className="text-2xl text-white">${price?.toFixed(2)}</span>
+        <div className="w-full rounded-[24px] bg-primary flex items-center h-14 justify-between px-6">
+          <span className="text-md text-white">${price?.toFixed(2)}</span>
           <Button
             onClick={action}
             variant="transparent"
