@@ -3,10 +3,12 @@ export const ROUTES = {
   signIn: "/sign-in",
   signUp: "/sign-up",
   resetPassword: "/reset-password",
-  product: "/product",
+  products: "/products",
   categories: "/categories",
   cart: "/cart",
   notifications: "/notifications",
   orders: "/orders",
   profile: "/profile",
+  favs: "/favorites",
+  checkout: "/checkout",
 };

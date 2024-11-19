@@ -1,12 +1,19 @@
-import { ProductType } from "@/types/product";
+import { ROUTE_CLIENT } from "@/lib/config/requests";
+import { ProductType, ProductsSearchParams } from "@/types/product";
+import { AxiosInstance } from "axios";
 
 class ProductServiceClass {
-  private routeClient;
+  private routeClient: AxiosInstance;
   constructor() {
-    this.routeClient = "";
+    this.routeClient = ROUTE_CLIENT;
   }
-  async getProductsByFilters(): Promise<ProductType[]> {
-    return [];
+  async getProductsByFilters(
+    params: ProductsSearchParams
+  ): Promise<ProductType[]> {
+    const response = await this.routeClient.get("products/by-filter", {
+      params: { amount: 20, ...params },
+    });
+    return response.data;
   }
 }
 

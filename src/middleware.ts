@@ -1,6 +1,7 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
 export default clerkMiddleware();
+// todo: add protected routes
 
 export const config = {
   matcher: [

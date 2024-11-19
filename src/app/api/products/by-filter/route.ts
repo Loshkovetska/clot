@@ -1,15 +1,30 @@
-import createClient from "@/supabase/server";
+import createClient from "@/lib/config/supabase";
 import { NextRequest, NextResponse } from "next/server";
 
-export default async function GET(req: NextRequest) {
+export async function GET(req: NextRequest) {
+  const params = Object.fromEntries(req.nextUrl.searchParams);
+
   try {
     const supabase = await createClient();
-    const products = await supabase.from("products").select();
+    const request = supabase
+      .from("products")
+      .select()
+      .limit(Number(params?.amount || 20));
 
-    if (products.data?.length) {
-      return new NextResponse(JSON.stringify([]), { status: 200 });
+    let products;
+
+    if (params.new) {
+      products = await request.eq("isNew", true);
     }
-    throw new Error("Can't get the products list");
+
+    if (params.top_selling) {
+      products = await request.order("sold_amount", { ascending: false });
+    }
+
+    if (products?.error || products?.status !== 200) {
+      throw new Error("Can't get the categories list");
+    }
+    return new NextResponse(JSON.stringify(products.data), { status: 200 });
   } catch (e) {
     return new NextResponse(JSON.stringify(e), { status: 500 });
   }

@@ -28,7 +28,7 @@ const SheetOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Overlay
     ref={ref}
-    className={cn("fixed inset-0 z-50 bg-black/80", className)}
+    className={cn("fixed left-0 right-0 top-0 z-50 bg-black/80", className)}
     {...props}
   />
 ));

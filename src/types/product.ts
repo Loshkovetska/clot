@@ -37,4 +37,15 @@ type ProductReviewType = {
   product_id: string;
 };
 
-export type { CombinationType, ProductReviewType, ProductType };
+type ProductsSearchParams = {
+  new?: boolean;
+  top_selling?: boolean;
+  amount?: number;
+};
+
+export type {
+  CombinationType,
+  ProductReviewType,
+  ProductType,
+  ProductsSearchParams,
+};
