@@ -1,13 +1,14 @@
+import { useRouter } from "next/navigation";
+import { useCallback } from "react";
+
 import { ChevronLeftIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
-import { useCallback } from "react";
 
 export default function BackButton({ className }: { className?: string }) {
   const router = useRouter();
 
-  const goBack = useCallback(() => router.back(), []);
+  const goBack = useCallback(() => router.back(), [router]);
   return (
     <Button
       onClick={goBack}

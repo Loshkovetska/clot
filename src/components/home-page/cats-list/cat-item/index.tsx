@@ -1,6 +1,7 @@
-import { ROUTES } from "@/lib/constants/routes";
 import Image from "next/image";
 import Link from "next/link";
+
+import { ROUTES } from "@/lib/constants/routes";
 
 type CatItemPropType = {
   title: string;
@@ -14,7 +15,7 @@ export default function CatItem({ title, imageUrl, slug }: CatItemPropType) {
       className="flex flex-col items-center gap-1.5"
       href={`${ROUTES.categories}/${slug}`}
     >
-      <div className="size-14 rounded-full overflow-hidden relative">
+      <div className="relative size-14 overflow-hidden rounded-full">
         <Image
           src={`${process.env.NEXT_PUBLIC_SUPABASE_STORAGE}/${imageUrl ?? ""}`}
           alt="cat-item"

@@ -1,7 +1,8 @@
 "use client";
+import { useCallback, useState } from "react";
+
 import { SearchIcon } from "@/components/icons";
 import { Input } from "@/components/ui/input";
-import { useCallback, useState } from "react";
 
 export default function SearchBar() {
   const [value, setValue] = useState("");

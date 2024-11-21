@@ -1,11 +1,12 @@
+import { useCallback, useMemo, useState } from "react";
+import { toast } from "sonner";
+
 import BottomBar from "@/components/common/bottom-bar";
 import Counter from "@/components/common/counter";
 import ProductPrice from "@/components/home-page/products-list/product-price";
 import ProductVariants from "@/components/product-page/product-main-info/product-variants";
 import { getProductCombination } from "@/lib/utils/product";
 import { ProductType, ProductVariantType } from "@/types/product";
-import { useCallback, useMemo, useState } from "react";
-import { toast } from "sonner";
 
 export default function ProductMainInfo({ product }: { product: ProductType }) {
   const [amount, setAmount] = useState(1);
@@ -19,7 +20,7 @@ export default function ProductMainInfo({ product }: { product: ProductType }) {
     return (
       initPrice * ((currentCombination?.discount as number) / 100 || 1) * amount
     );
-  }, [currentCombination?.price, currentCombination?.dicount, amount]);
+  }, [currentCombination?.price, currentCombination?.discount, amount]);
 
   const handleCountChange = useCallback(
     (num: number) => {
@@ -59,7 +60,7 @@ export default function ProductMainInfo({ product }: { product: ProductType }) {
     <>
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-3">
-          <h1 className="text-3xl max-lg:text-md">{product.title}</h1>
+          <h1 className="max-lg:text-md text-3xl">{product.title}</h1>
           <ProductPrice
             price={currentCombination.price as number}
             discount={currentCombination.discount as number}
@@ -73,7 +74,7 @@ export default function ProductMainInfo({ product }: { product: ProductType }) {
             variants={product.variants}
             onChange={handleCombinationChange}
           />
-          <div className="px-4 py-2 bg-light-100 rounded-[24px] flex items-center justify-between">
+          <div className="flex items-center justify-between rounded-[24px] bg-light-100 px-4 py-2">
             <span className="text-md">Quantity</span>
             <Counter
               count={amount}

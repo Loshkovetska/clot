@@ -14,16 +14,16 @@ export default function CommonInfoBlock({
 }: CommonInfoBlockPropType) {
   return (
     <Button variant="transparent">
-      <div className="w-full p-3 rounded-lg bg-light-100 flex gap-4">
-        <div className="flex flex-col gap-1 grow items-start">
+      <div className="flex w-full gap-4 rounded-lg bg-light-100 p-3">
+        <div className="flex grow flex-col items-start gap-1">
           <span className="text-sm text-black-50">
             {type === "address" ? "Shipping Address" : "Payment Card"}
           </span>
-          <span className="text-sm text-black-100 line-clamp-1">
+          <span className="line-clamp-1 text-sm text-black-100">
             {type === "address" ? address : card}
           </span>
         </div>
-        <div className="flex items-center justify-center rotate-180">
+        <div className="flex rotate-180 items-center justify-center">
           <ChevronLeftIcon />
         </div>
       </div>

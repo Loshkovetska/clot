@@ -7,8 +7,8 @@ import { ProductType } from "@/types/product";
 
 export default function ProductContent({ product }: { product: ProductType }) {
   return (
-    <div className="flex flex-col gap-6 lg:gap-10 max-w-[1024px] mx-auto pb-20">
-      <div className="w-full flex gap-6 lg:gap-14 max-lg:flex-col">
+    <div className="mx-auto flex max-w-screen-lg flex-col gap-6 pb-20 lg:gap-10">
+      <div className="flex w-full gap-6 max-lg:flex-col lg:gap-14">
         <ProductCarousel images={product?.imageUrls} />
         <ProductMainInfo product={product} />
       </div>

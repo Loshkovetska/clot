@@ -1,9 +1,10 @@
-import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import * as React from "react";
 
+import { cn } from "@/lib/utils";
+
 const inputVariants = cva(
-  "w-full bg-light-100 overflow-hidden flex items-center gap-3 group",
+  "group flex w-full items-center gap-3 overflow-hidden bg-light-100",
   {
     variants: {
       variant: {

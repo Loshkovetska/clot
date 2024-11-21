@@ -1,20 +1,21 @@
 "use client";
+import Image from "next/image";
+import Link from "next/link";
+import { useCallback } from "react";
+
 import ProductPrice from "@/components/home-page/products-list/product-price";
 import { HeartIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/constants/routes";
 import { cn } from "@/lib/utils";
 import { ProductType } from "@/types/product";
-import Image from "next/image";
-import Link from "next/link";
-import { useCallback } from "react";
 
 export default function ProductCard(
   props: ProductType & { className?: string }
 ) {
   const { title, imageUrls, combinations, className, slug, id } = props;
 
-  const addProductToFav = useCallback(() => {}, [id]);
+  const addProductToFav = useCallback(() => {}, []);
   return (
     <Link
       href={`${ROUTES.products}/${slug}`}
@@ -23,7 +24,7 @@ export default function ProductCard(
         className
       )}
     >
-      <div className="w-full h-[220px] mb-2 relative">
+      <div className="relative mb-2 h-[220px] w-full">
         <Image
           src={`${process.env.NEXT_PUBLIC_SUPABASE_STORAGE}/${imageUrls?.[0] ?? ""}`}
           alt={title}
@@ -33,12 +34,12 @@ export default function ProductCard(
         <Button
           onClick={addProductToFav}
           variant="transparent"
-          className="absolute top-2 right-3 !h-auto"
+          className="absolute right-3 top-2 !h-auto"
         >
           <HeartIcon />
         </Button>
       </div>
-      <div className="w-full flex flex-col gap-2 grow px-2">
+      <div className="flex w-full grow flex-col gap-2 px-2">
         <h3 className="text-md line-clamp-1">{title}</h3>
         <ProductPrice
           price={combinations?.[0].price as number}

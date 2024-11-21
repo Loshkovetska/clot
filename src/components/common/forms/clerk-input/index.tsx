@@ -15,9 +15,9 @@ export default function ClerkInput({
       <Clerk.Input
         type={type}
         placeholder={placeholder}
-        className="bg-light-100 dark:bg-dark-100 px-3 py-4 w-full rounded-md"
+        className="w-full rounded-md bg-light-100 px-3 py-4 dark:bg-dark-100"
       />
-      <Clerk.FieldError className="text-destructive mt-1 flex" />
+      <Clerk.FieldError className="mt-1 flex text-destructive" />
     </Clerk.Field>
   );
 }

@@ -6,7 +6,7 @@ import { Spinner } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "text-md inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -16,12 +16,12 @@ const buttonVariants = cva(
         outline:
           "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
         light: "bg-light-100",
-        transparent: "bg-transparent !p-0 h-auto",
+        transparent: "h-auto bg-transparent !p-0",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-14 px-4 py-2 rounded-[100px] overflow-hidden",
+        lg: "h-14 overflow-hidden rounded-[100px] px-4 py-2",
         icon: "size-10 rounded-full",
         "icon-sm": "size-6 rounded-full",
       },

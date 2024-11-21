@@ -1,5 +1,6 @@
-import { ROUTES } from "@/lib/constants/routes";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+
+import { ROUTES } from "@/lib/constants/routes";
 
 const PROTECTED_ROUTES = Object.entries(ROUTES)
   .filter(

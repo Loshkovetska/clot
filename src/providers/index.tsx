@@ -1,9 +1,10 @@
 "use client";
+import { ClerkProvider } from "@clerk/nextjs";
+import { PropsWithChildren } from "react";
+
 import { generateClerkTheme } from "@/lib/utils/theme";
 import QueryProvider from "@/providers/query-provider";
 import { useTheme } from "@/providers/theme-provider";
-import { ClerkProvider } from "@clerk/nextjs";
-import { PropsWithChildren } from "react";
 
 export default function Providers(props: PropsWithChildren) {
   const { theme } = useTheme();

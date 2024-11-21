@@ -1,6 +1,7 @@
+import Image from "next/image";
+
 import { StarIcon } from "@/components/icons";
 import { ReviewType } from "@/types/review";
-import Image from "next/image";
 
 export default function ReviewItem({ review }: { review: ReviewType }) {
   return (

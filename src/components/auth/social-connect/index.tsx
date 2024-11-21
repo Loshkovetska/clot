@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils";
 import * as Clerk from "@clerk/elements/common";
+
+import { cn } from "@/lib/utils";
 
 const ICON_CLASSNAME = "absolute left-4 size-6";
 const ITEM_CLASSNAME =
@@ -7,7 +8,7 @@ const ITEM_CLASSNAME =
 
 export default function SocialConnect() {
   return (
-    <div className="flex flex-col gap-3 w-full mt-[70px]">
+    <div className="mt-[70px] flex w-full flex-col gap-3">
       <Clerk.Connection
         name="apple"
         className={cn(ITEM_CLASSNAME, "dark:text-white")}

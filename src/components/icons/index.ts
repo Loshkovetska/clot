@@ -12,6 +12,7 @@ import { SearchIcon } from "@/components/icons/search";
 import { ShoppingCartIcon } from "@/components/icons/shop-cart";
 import { Spinner } from "@/components/icons/spinner";
 import { StarIcon } from "@/components/icons/star";
+
 export {
   CheckIcon,
   ChevronLeftIcon,

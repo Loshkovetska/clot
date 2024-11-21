@@ -40,7 +40,7 @@ export default function MobileDialog({
           {title && <SheetTitle className="text-2xl">{title}</SheetTitle>}
           {description && <SheetDescription>{description}</SheetDescription>}
         </SheetHeader>
-        <div className="mt-2 w-full flex flex-col gap-4 px-4 pb-4">
+        <div className="mt-2 flex w-full flex-col gap-4 px-4 pb-4">
           {children}
         </div>
         <SheetFooter>

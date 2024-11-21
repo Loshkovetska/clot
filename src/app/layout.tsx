@@ -1,9 +1,11 @@
+import { type Metadata } from "next";
+import localFont from "next/font/local";
+import { PropsWithChildren } from "react";
+
 import { Toaster } from "@/components/ui/toast";
 import Providers from "@/providers";
 import ThemeProvider from "@/providers/theme-provider";
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import { PropsWithChildren } from "react";
+
 import "./globals.css";
 
 const circularSans = localFont({
@@ -36,10 +38,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html
       lang="en"
-      className="flex flex-col min-h-full"
+      className="flex min-h-full flex-col"
     >
       <body
-        className={`${circularSans.className} antialiased flex flex-col grow`}
+        className={`${circularSans.className} flex grow flex-col antialiased`}
       >
         <ThemeProvider>
           <Providers>{children}</Providers>

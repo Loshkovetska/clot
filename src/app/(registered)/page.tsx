@@ -15,7 +15,7 @@ export default async function Home() {
         title="Clot"
       />
 
-      <div className="flex flex-col gap-6 pt-[127px] px-6 pb-[100px]">
+      <div className="flex flex-col gap-6 px-6 pb-[100px] pt-[127px]">
         <SearchBar />
         <CatsList />
         <ProductsList

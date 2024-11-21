@@ -1,5 +1,6 @@
-import createClient from "@/lib/config/supabase";
 import { NextRequest, NextResponse } from "next/server";
+
+import createClient from "@/lib/config/supabase";
 
 export async function GET(req: NextRequest) {
   const params = Object.fromEntries(req.nextUrl.searchParams);

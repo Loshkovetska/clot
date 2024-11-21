@@ -11,7 +11,7 @@ export default function RateBlock({
   const stars = Array(5).fill("star");
 
   return (
-    <div className="flex items-center gap-3 justify-center">
+    <div className="flex items-center justify-center gap-3">
       {stars.map((_, ind) => (
         <Button
           key={ind}

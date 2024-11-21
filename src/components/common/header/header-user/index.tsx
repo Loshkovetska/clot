@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function HeaderUser() {
   const { isLoaded, user } = useUser();
   return (
-    <div className="flex items-center justify-center relative rounded-full bg-black-50 size-10 overflow-hidden">
+    <div className="relative flex size-10 items-center justify-center overflow-hidden rounded-full bg-black-50">
       {isLoaded && (
         <Image
           src={user?.imageUrl ?? ""}

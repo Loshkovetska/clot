@@ -14,7 +14,7 @@ export default function CommonListWrapper({
   data,
 }: CommonListWrapperPropType) {
   return (
-    <div className="flex flex-col items-center gap-4 w-full">
+    <div className="flex w-full flex-col items-center gap-4">
       <CommonListHeader
         title={title}
         href={href}

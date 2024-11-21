@@ -1,9 +1,10 @@
+import { useCallback, useMemo } from "react";
+
 import { CheckIcon, ChevronLeftIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import MobileDialog from "@/components/ui/mobile-dialog";
 import { cn } from "@/lib/utils";
 import { CombinationType, ProductVariantType } from "@/types/product";
-import { useCallback, useMemo } from "react";
 
 type ProductVariantPropType = {
   name: string;
@@ -84,7 +85,7 @@ export default function ProductVariant({
         size="lg"
         className="w-full gap-6 pr-5"
       >
-        <div className="grow flex items-center justify-between">
+        <div className="flex grow items-center justify-between">
           <span className="text-md">{name}</span>
           {triggerContent(
             currentCombination[id] as ProductVariantType["attr_list"][0],
@@ -115,7 +116,7 @@ export default function ProductVariant({
           key={ind}
           onClick={() => handleVariantChange(combination)}
         >
-          <div className="grow flex items-center justify-between">
+          <div className="flex grow items-center justify-between">
             {triggerContent(combination, false, isSelected(combination))}
           </div>
           <CheckIcon

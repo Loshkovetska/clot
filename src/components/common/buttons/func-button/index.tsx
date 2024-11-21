@@ -1,6 +1,7 @@
+import Link from "next/link";
+
 import { HeartIcon, ShoppingCartIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 type FuncButtonPropType = {
   href: string;

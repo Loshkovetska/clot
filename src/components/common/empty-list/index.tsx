@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { EMPTYLIST_DATA } from "@/lib/constants/emptylist";
 import Image from "next/image";
 import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import { EMPTYLIST_DATA } from "@/lib/constants/emptylist";
 
 type EmptyListPropType = {
   type: "notifications" | "orders" | "search" | "cart" | "message";
@@ -10,7 +11,7 @@ type EmptyListPropType = {
 export default function EmptyList({ type }: EmptyListPropType) {
   const data = EMPTYLIST_DATA[type];
   return (
-    <div className="w-full flex flex-col items-center gap-6">
+    <div className="flex w-full flex-col items-center gap-6">
       <Image
         width={100}
         height={100}

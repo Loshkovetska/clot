@@ -5,7 +5,8 @@
     "prettier",
     "plugin:tailwindcss/recommended",
     "plugin:import/recommended",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:prettier/recommended"
   ],
   "settings": {
     "import/resolver": {
@@ -14,16 +15,12 @@
     }
   },
   "rules": {
+    "tailwindcss/no-custom-classname": "off",
     "unused-imports/no-unused-imports": "error",
-    "padding-line-between-statements": [
-      "error",
-      { "blankLine": "always", "prev": "if", "next": "*" },
-      { "blankLine": "always", "prev": "*", "next": "return" }
-    ],
-    "prettier/prettier": ["error"],
+    "prettier/prettier": ["off"],
     "import/no-named-as-default-member": ["off"],
     "import/order": [
-      "error",
+      "warn",
       {
         "groups": [
           "builtin",
@@ -44,10 +41,10 @@
       }
     ],
     "import/export": ["warn"],
-    "import/consistent-type-specifier-style": ["error", "prefer-inline"],
-    "import/newline-after-import": "error",
+    "import/consistent-type-specifier-style": ["warn", "prefer-inline"],
+    "import/newline-after-import": "warn",
     "sort-imports": [
-      "error",
+      "warn",
       {
         "ignoreDeclarationSort": true
       }

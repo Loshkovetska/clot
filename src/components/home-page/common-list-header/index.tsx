@@ -10,7 +10,7 @@ export default function CommonListHeader({
   href,
 }: CommonListHeaderPropType) {
   return (
-    <div className="flex items-center justify-between w-full">
+    <div className="flex w-full items-center justify-between">
       <h2 className="text-2xl font-bold">{title}</h2>
       <Link
         href={href}

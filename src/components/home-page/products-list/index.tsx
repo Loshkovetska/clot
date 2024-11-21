@@ -1,11 +1,12 @@
 "use client";
+import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+
 import CommonListWrapper from "@/components/home-page/common-list-wrapper";
 import ProductCard from "@/components/home-page/products-list/product-card";
 import { CommonListPropType } from "@/components/home-page/type";
 import ProductService from "@/services/product.service";
 import { ProductsSearchParams } from "@/types/product";
-import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
 
 export default function ProductsList({
   title,

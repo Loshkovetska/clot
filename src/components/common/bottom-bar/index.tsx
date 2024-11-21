@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
 
 type BottomBarPropType = {
   price?: number;
@@ -15,17 +16,17 @@ export default function BottomBar({
   action,
 }: BottomBarPropType) {
   return (
-    <div className="px-3 py-6 bg-white flex items-center justify-center fixed bottom-0 left-0 w-full">
+    <div className="fixed bottom-0 left-0 flex w-full items-center justify-center bg-white px-3 py-6">
       {!action && (
         <Link
           className="w-full"
           href={actionLink ?? ""}
         >
-          <Button className="w-full rounded-[24px] h-14">{actionTitle}</Button>
+          <Button className="h-14 w-full rounded-[24px]">{actionTitle}</Button>
         </Link>
       )}
       {action && (
-        <div className="w-full rounded-[24px] bg-primary flex items-center h-14 justify-between px-6">
+        <div className="flex h-14 w-full items-center justify-between rounded-[24px] bg-primary px-6">
           <span className="text-md text-white">${price?.toFixed(2)}</span>
           <Button
             onClick={action}

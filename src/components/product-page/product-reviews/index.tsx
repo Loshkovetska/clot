@@ -1,9 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+
 import AddReviewDialog from "@/components/product-page/product-reviews/add-review-dialog";
 import { Button } from "@/components/ui/button";
 import { QUERY_KEYS } from "@/lib/constants/querykeys";
 import ProductService from "@/services/product.service";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 
 type ProductReviewsPropType = {
   rating: number;
@@ -26,8 +27,8 @@ export default function ProductReviews({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3">
-        <h2 className="font-bold text-md">Reviews</h2>
-        <span className="font-bold text-2xl">{rating} Ratings</span>
+        <h2 className="text-md font-bold">Reviews</h2>
+        <span className="text-2xl font-bold">{rating} Ratings</span>
         <span className="text-sm text-black-50">{totalReviews} Reviews</span>
         <AddReviewDialog product_id={id} />
       </div>
@@ -41,7 +42,7 @@ export default function ProductReviews({
         {!showAll && (
           <Button
             onClick={() => setShowAll(true)}
-            className="max-w-[320px] mx-auto w-full"
+            className="mx-auto w-full max-w-[320px]"
           >
             Show All Reviews
           </Button>

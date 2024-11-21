@@ -1,3 +1,8 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { useCallback, useState } from "react";
+import { useForm } from "react-hook-form";
+
 import RateBlock from "@/components/product-page/product-reviews/add-review-dialog/rate-block";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,10 +17,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { addReviewScheme } from "@/lib/scheme";
 import ProductService from "@/services/product.service";
 import { AddReviewFormType, AddReviewParams } from "@/types/review";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { useCallback, useState } from "react";
-import { useForm } from "react-hook-form";
 
 type AddReviewDialogPropType = {
   product_id: string;
@@ -49,7 +50,7 @@ export default function AddReviewDialog({
 
       form.reset();
     },
-    [product_id]
+    [product_id, form, mutate]
   );
 
   const handleDialogState = useCallback(
