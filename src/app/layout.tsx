@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toast";
 import Providers from "@/providers";
 import ThemeProvider from "@/providers/theme-provider";
 import type { Metadata } from "next";
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <ThemeProvider>
           <Providers>{children}</Providers>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );

@@ -70,18 +70,18 @@ export default function ProductMainInfo({ product }: { product: ProductType }) {
         <div className="flex flex-col gap-3">
           <ProductVariants
             currentCombination={currentCombination}
-            onChange={handleCombinationChange}
             variants={product.variants}
+            onChange={handleCombinationChange}
           />
           <div className="px-4 py-2 bg-light-100 rounded-[24px] flex items-center justify-between">
             <span className="text-md">Quantity</span>
             <Counter
               count={amount}
-              handleCountChange={handleCountChange}
               variant="icon"
               className="gap-5"
               disabledMinus={amount === 1}
               disabledPlus={amount === 5}
+              handleCountChange={handleCountChange}
             />
           </div>
         </div>

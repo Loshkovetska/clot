@@ -16,6 +16,8 @@ type MobileDialogPropType = {
   description?: string;
   buttonsBlock?: React.ReactNode;
   children?: React.ReactNode[] | React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (fl: boolean) => void;
 };
 
 export default function MobileDialog({
@@ -24,9 +26,14 @@ export default function MobileDialog({
   description,
   buttonsBlock,
   children,
+  open,
+  onOpenChange,
 }: MobileDialogPropType) {
   return (
-    <Sheet>
+    <Sheet
+      open={open}
+      onOpenChange={onOpenChange}
+    >
       <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent>
         <SheetHeader>
