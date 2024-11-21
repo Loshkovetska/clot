@@ -1,4 +1,4 @@
-export default function MinusIcon() {
+export default function MinusIcon({ className }: { className?: string }) {
   return (
     <svg
       width="12"
@@ -6,6 +6,7 @@ export default function MinusIcon() {
       viewBox="0 0 12 13"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         d="M8 6.5H9M3 6.5H5.83"

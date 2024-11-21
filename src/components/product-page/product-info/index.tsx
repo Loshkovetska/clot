@@ -1,5 +1,4 @@
 export default function ProductInfo({ description }: { description?: string }) {
-  console.log(description);
   return (
     <>
       <p className="text-sm text-black-50 max-w-[600px]">{description}</p>

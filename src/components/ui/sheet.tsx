@@ -28,7 +28,7 @@ const SheetOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Overlay
     ref={ref}
-    className={cn("fixed left-0 right-0 top-0 z-50 bg-black/80", className)}
+    className={cn("fixed inset-0 z-[10000000] bg-black/50", className)}
     {...props}
   />
 ));
@@ -43,12 +43,11 @@ const SheetContent = React.forwardRef<
     <DrawerPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background",
+        "fixed inset-x-0 bottom-0 z-[10000000] mt-24 flex h-auto flex-col rounded-t-[16] border bg-background",
         className
       )}
       {...props}
     >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
       {children}
     </DrawerPrimitive.Content>
   </SheetPortal>
@@ -71,7 +70,10 @@ const SheetFooter = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn("mt-auto flex flex-col gap-2 p-4", className)}
+    className={cn(
+      "mt-auto flex flex-col gap-2 p-4 border-t border-light-100",
+      className
+    )}
     {...props}
   />
 );

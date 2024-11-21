@@ -1,6 +1,4 @@
-import MinusIcon from "@/components/icons/minus";
-import PlusIcon from "@/components/icons/plus";
-import { Button } from "@/components/ui/button";
+import Counter from "@/components/counter";
 import Image from "next/image";
 
 export default function CartItem() {
@@ -25,17 +23,11 @@ export default function CartItem() {
               <span className="text-sm font-bold text-black-100"></span>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Button
-              size="icon-sm"
-              className=""
-            >
-              <MinusIcon />
-            </Button>
-            <Button size="icon-sm">
-              <PlusIcon />
-            </Button>
-          </div>
+          <Counter
+            count={0}
+            handleCountChange={() => {}}
+            variant="icon-sm"
+          />
         </div>
       </div>
     </div>

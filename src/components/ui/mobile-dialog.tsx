@@ -10,20 +10,43 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-export default function MobileDialog() {
+type MobileDialogPropType = {
+  trigger: React.ReactNode;
+  title?: string;
+  description?: string;
+  buttonsBlock?: React.ReactNode;
+  children?: React.ReactNode[] | React.ReactNode;
+};
+
+export default function MobileDialog({
+  trigger,
+  title,
+  description,
+  buttonsBlock,
+  children,
+}: MobileDialogPropType) {
   return (
     <Sheet>
-      <SheetTrigger>Open</SheetTrigger>
+      <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Are you absolutely sure?</SheetTitle>
-          <SheetDescription>This action cannot be undone.</SheetDescription>
+          {title && <SheetTitle className="text-2xl">{title}</SheetTitle>}
+          {description && <SheetDescription>{description}</SheetDescription>}
         </SheetHeader>
+        <div className="mt-2 w-full flex flex-col gap-4 px-4 pb-4">
+          {children}
+        </div>
         <SheetFooter>
-          <Button>Submit</Button>
-          <SheetClose>
-            <Button variant="outline">Cancel</Button>
-          </SheetClose>
+          {buttonsBlock || (
+            <SheetClose asChild>
+              <Button
+                size="lg"
+                variant="light"
+              >
+                Cancel
+              </Button>
+            </SheetClose>
+          )}
         </SheetFooter>
       </SheetContent>
     </Sheet>

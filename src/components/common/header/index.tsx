@@ -10,6 +10,7 @@ type HeaderPropType = {
   funcButton?: {
     href: string;
     type: "cart" | "fav";
+    variant?: "default" | "destructive" | "outline" | "light" | "transparent";
   };
   className?: string;
   backButtonClassName?: string;
@@ -50,6 +51,7 @@ export default function Header({
         <FuncButton
           href={funcButton?.href}
           type={funcButton?.type}
+          variant={funcButton?.variant}
         />
       )}
     </header>

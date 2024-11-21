@@ -12,7 +12,7 @@ import { useCallback } from "react";
 export default function ProductCard(
   props: ProductType & { className?: string }
 ) {
-  const { title, imageUrls, price, discount, className, slug, id } = props;
+  const { title, imageUrls, combinations, className, slug, id } = props;
 
   const addProductToFav = useCallback(() => {}, [id]);
   return (
@@ -41,8 +41,8 @@ export default function ProductCard(
       <div className="w-full flex flex-col gap-2 grow px-2">
         <h3 className="text-md line-clamp-1">{title}</h3>
         <ProductPrice
-          price={price}
-          discount={discount}
+          price={combinations?.[0].price as number}
+          discount={combinations?.[0]?.discount as number}
         />
       </div>
     </Link>

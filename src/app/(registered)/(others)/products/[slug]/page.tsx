@@ -22,7 +22,9 @@ export default async function Page({ params }: { params: any }) {
 
   return (
     <>
-      <Header funcButton={{ type: "fav", href: ROUTES.favs }} />
+      <Header
+        funcButton={{ type: "fav", href: ROUTES.favs, variant: "light" }}
+      />
       {product?.state?.data && (
         <ProductContent
           product={JSON.parse(product?.state?.data as string) as ProductType}

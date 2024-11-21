@@ -6,8 +6,6 @@ export async function GET(req: NextRequest, context: any) {
     const supabase = await createClient();
     const { id } = await context?.params;
 
-    console.log(id);
-
     const product = await supabase
       .from("products")
       .select()

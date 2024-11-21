@@ -3,8 +3,6 @@ type ProductType = {
   title: string;
   slug: string;
   imageUrls: string[];
-  price: number;
-  discount: number;
   combinations: CombinationType[];
   description: string;
   shippingCost: number;
@@ -13,15 +11,17 @@ type ProductType = {
   totalReviews: number;
   gender: "male" | "female";
   category_id: string;
+  variants: ProductVariantType[];
+};
+
+type ProductVariantType = {
+  attr_name: string;
+  attr_id: string;
+  attr_list: Array<string | { name: string; valueHex: string }>;
 };
 
 type CombinationType = {
-  size: string;
-  color?: {
-    value: string;
-    valueHex: string;
-  };
-  amount: number;
+  [key in string]: string | number;
 };
 
 type ProductReviewType = {
@@ -47,5 +47,6 @@ export type {
   CombinationType,
   ProductReviewType,
   ProductType,
+  ProductVariantType,
   ProductsSearchParams,
 };

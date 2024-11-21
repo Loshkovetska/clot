@@ -1,4 +1,4 @@
-export default function SearchIcon() {
+export default function SearchIcon({ className }: { className?: string }) {
   return (
     <svg
       width="16"
@@ -6,6 +6,7 @@ export default function SearchIcon() {
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <g clipPath="url(#clip0_0_396)">
         <path
