@@ -1,4 +1,4 @@
-import ChevronLeftIcon from "@/components/icons/chevron";
+import { ChevronLeftIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";

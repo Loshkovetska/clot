@@ -1,4 +1,4 @@
-import ChevronLeftIcon from "@/components/icons/chevron";
+import { ChevronLeftIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 
 type CommonInfoBlockPropType = {

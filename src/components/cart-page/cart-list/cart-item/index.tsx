@@ -1,4 +1,4 @@
-import Counter from "@/components/counter";
+import Counter from "@/components/common/counter";
 import Image from "next/image";
 
 export default function CartItem() {

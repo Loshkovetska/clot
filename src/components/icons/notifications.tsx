@@ -1,8 +1,4 @@
-export default function NotificationIcon({
-  className,
-}: {
-  className?: string;
-}) {
+export function NotificationIcon({ className }: { className?: string }) {
   return (
     <svg
       width="25"

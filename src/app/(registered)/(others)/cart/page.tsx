@@ -1,6 +1,6 @@
-import BottomBar from "@/components/bottom-bar";
 import CartList from "@/components/cart-page/cart-list";
 import CouponBlock from "@/components/cart-page/cart-list/coupon-block";
+import BottomBar from "@/components/common/bottom-bar";
 import Header from "@/components/common/header";
 import Summary from "@/components/summary";
 import { ROUTES } from "@/lib/constants/routes";

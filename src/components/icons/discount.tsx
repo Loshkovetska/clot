@@ -1,4 +1,4 @@
-export default function DiscountIcon({ className }: { className?: string }) {
+export function DiscountIcon({ className }: { className?: string }) {
   return (
     <svg
       width="24"

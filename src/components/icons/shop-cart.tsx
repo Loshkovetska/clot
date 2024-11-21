@@ -1,8 +1,4 @@
-export default function ShoppingCartIcon({
-  className,
-}: {
-  className?: string;
-}) {
+export function ShoppingCartIcon({ className }: { className?: string }) {
   return (
     <svg
       width="16"

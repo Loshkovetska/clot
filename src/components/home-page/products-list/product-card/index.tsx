@@ -1,6 +1,6 @@
 "use client";
 import ProductPrice from "@/components/home-page/products-list/product-price";
-import HeartIcon from "@/components/icons/heart";
+import { HeartIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/constants/routes";
 import { cn } from "@/lib/utils";

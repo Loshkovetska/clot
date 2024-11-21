@@ -1,4 +1,4 @@
-import StarIcon from "@/components/icons/star";
+import { StarIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 
 export default function RateBlock({

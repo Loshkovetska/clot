@@ -1,7 +1,9 @@
-import HomeIcon from "@/components/icons/home";
-import NotificationIcon from "@/components/icons/notifications";
-import OrdersIcon from "@/components/icons/orders";
-import ProfileIcon from "@/components/icons/profile";
+import {
+  HomeIcon,
+  NotificationIcon,
+  OrdersIcon,
+  ProfileIcon,
+} from "@/components/icons";
 import { ROUTES } from "@/lib/constants/routes";
 
 export const NAVBAR_ITEMS = [

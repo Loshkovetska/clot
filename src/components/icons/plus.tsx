@@ -1,4 +1,4 @@
-export default function PlusIcon({ className }: { className?: string }) {
+export function PlusIcon({ className }: { className?: string }) {
   return (
     <svg
       width="12"

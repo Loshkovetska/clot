@@ -1,5 +1,5 @@
 "use client";
-import SearchIcon from "@/components/icons/search";
+import { SearchIcon } from "@/components/icons";
 import { Input } from "@/components/ui/input";
 import { useCallback, useState } from "react";
 

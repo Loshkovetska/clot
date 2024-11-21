@@ -1,4 +1,4 @@
-export default function SearchIcon({ className }: { className?: string }) {
+export function SearchIcon({ className }: { className?: string }) {
   return (
     <svg
       width="16"

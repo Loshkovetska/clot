@@ -1,5 +1,5 @@
-import BottomBar from "@/components/bottom-bar";
-import Counter from "@/components/counter";
+import BottomBar from "@/components/common/bottom-bar";
+import Counter from "@/components/common/counter";
 import ProductPrice from "@/components/home-page/products-list/product-price";
 import ProductVariants from "@/components/product-page/product-main-info/product-variants";
 import { getProductCombination } from "@/lib/utils/product";

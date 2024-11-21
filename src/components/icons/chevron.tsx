@@ -1,4 +1,4 @@
-export default function ChevronLeftIcon({ className }: { className?: string }) {
+export function ChevronLeftIcon({ className }: { className?: string }) {
   return (
     <svg
       width="16"

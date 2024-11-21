@@ -1,4 +1,4 @@
-export default function StarIcon({
+export function StarIcon({
   fill = "#F4F4F4",
   className,
 }: {

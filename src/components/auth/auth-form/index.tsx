@@ -1,6 +1,6 @@
-import ResetPasswordForm from "@/components/forms/clerk-forms/reset-pass-form";
-import SignInForm from "@/components/forms/clerk-forms/sign-in-form";
-import SignUpForm from "@/components/forms/clerk-forms/sign-up-form";
+import ResetPasswordForm from "@/components/common/forms/clerk-forms/reset-pass-form";
+import SignInForm from "@/components/common/forms/clerk-forms/sign-in-form";
+import SignUpForm from "@/components/common/forms/clerk-forms/sign-up-form";
 
 export default function AuthForm({
   type,

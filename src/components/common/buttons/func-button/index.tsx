@@ -1,5 +1,4 @@
-import HeartIcon from "@/components/icons/heart";
-import ShoppingCartIcon from "@/components/icons/shop-cart";
+import { HeartIcon, ShoppingCartIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 

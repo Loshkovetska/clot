@@ -1,4 +1,4 @@
-export default function MinusIcon({ className }: { className?: string }) {
+export function MinusIcon({ className }: { className?: string }) {
   return (
     <svg
       width="12"

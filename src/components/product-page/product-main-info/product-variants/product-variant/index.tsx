@@ -1,5 +1,4 @@
-import CheckIcon from "@/components/icons/check";
-import ChevronLeftIcon from "@/components/icons/chevron";
+import { CheckIcon, ChevronLeftIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import MobileDialog from "@/components/ui/mobile-dialog";
 import { cn } from "@/lib/utils";

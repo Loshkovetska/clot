@@ -1,4 +1,4 @@
-import StarIcon from "@/components/icons/star";
+import { StarIcon } from "@/components/icons";
 import { ReviewType } from "@/types/review";
 import Image from "next/image";
 

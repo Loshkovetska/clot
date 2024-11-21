@@ -1,4 +1,4 @@
-export default function OrdersIcon({ className }: { className?: string }) {
+export function OrdersIcon({ className }: { className?: string }) {
   return (
     <svg
       width="25"

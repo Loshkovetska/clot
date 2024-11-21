@@ -17,7 +17,7 @@ export default function SocialConnect() {
             ICON_CLASSNAME,
             "dark:saturate-1 dark:invert dark:sepia-0"
           )}
-        />{" "}
+        />
         Continue With Apple
       </Clerk.Connection>
       <Clerk.Connection

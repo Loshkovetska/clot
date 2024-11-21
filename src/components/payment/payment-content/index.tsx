@@ -1,5 +1,5 @@
 "use client";
-import BottomBar from "@/components/bottom-bar";
+import BottomBar from "@/components/common/bottom-bar";
 import CommonInfoBlock from "@/components/payment/common-info-block";
 
 export default function PaymentContent() {

@@ -23,7 +23,6 @@ export default function ProductReviews({
     enabled: !!totalReviews,
   });
 
-  console.log(reviews);
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3">

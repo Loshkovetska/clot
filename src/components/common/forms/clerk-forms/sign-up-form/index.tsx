@@ -1,5 +1,5 @@
-import SignInForm from "@/components/forms/clerk-forms/sign-in-form";
-import ClerkInput from "@/components/forms/clerk-input";
+import SignInForm from "@/components/common/forms/clerk-forms/sign-in-form";
+import ClerkInput from "@/components/common/forms/clerk-input";
 
 export default function SignUpForm() {
   return (

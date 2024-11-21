@@ -1,5 +1,4 @@
-import ChevronLeftIcon from "@/components/icons/chevron";
-import DiscountIcon from "@/components/icons/discount";
+import { ChevronLeftIcon, DiscountIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 

@@ -1,4 +1,4 @@
-export default function HomeIcon({ className }: { className?: string }) {
+export function HomeIcon({ className }: { className?: string }) {
   return (
     <svg
       width="24"
