@@ -4,17 +4,13 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   try {
     const supabase = await createClient();
-    const params = Object.fromEntries(req.nextUrl.searchParams);
+    const cart = await supabase.from("cart").select();
+    //   todo add user condition
 
-    const reviews = await supabase
-      .from("reviews")
-      .select()
-      .eq("product_id", params.id);
-
-    if (reviews.error || reviews.status !== 200) {
-      throw new Error("Can't find the product reviews by slug");
+    if (cart.error || cart.status !== 200) {
+      throw new Error("Can't find user shop cart");
     }
-    return NextResponse.json(JSON.stringify(reviews.data), { status: 200 });
+    return NextResponse.json(JSON.stringify(cart.data), { status: 200 });
   } catch (e) {
     return NextResponse.json(e, { status: 500 });
   }
@@ -25,11 +21,10 @@ export async function POST(req: NextRequest) {
     const supabase = await createClient();
     const params = await req.json();
 
-    const reviews = await supabase.from("reviews").insert(params);
-    //   todo add user condition
+    const cart = await supabase.from("cart").insert(params);
 
-    if (reviews.error || reviews.status !== 200) {
-      throw new Error("Can't add a review");
+    if (cart.error || cart.status !== 200) {
+      throw new Error("Can't add a product to shop cart");
     }
     return NextResponse.json(JSON.stringify("OK"), { status: 200 });
   } catch (e) {

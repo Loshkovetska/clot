@@ -17,7 +17,7 @@ type AddReviewParams = {
   product_id: string;
   text: string;
   rate: number;
-  email: string;
+  date: Date;
 };
 
 type AddReviewFormType = z.infer<typeof addReviewScheme>;

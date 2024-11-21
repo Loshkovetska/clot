@@ -12,7 +12,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { addReviewScheme } from "@/lib/scheme";
 import ProductService from "@/services/product.service";
 import { AddReviewFormType, AddReviewParams } from "@/types/review";
-import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
@@ -26,7 +25,6 @@ export default function AddReviewDialog({
   product_id,
 }: AddReviewDialogPropType) {
   const [isOpen, setOpen] = useState(false);
-  const { user } = useUser();
   const form = useForm({
     defaultValues: {
       rate: 0,
@@ -46,12 +44,12 @@ export default function AddReviewDialog({
         rate: values.rate,
         text: values.text || "",
         product_id,
-        email: user?.emailAddresses?.[0]?.emailAddress || "",
+        date: new Date(),
       });
 
       form.reset();
     },
-    [product_id, user]
+    [product_id]
   );
 
   const handleDialogState = useCallback(
