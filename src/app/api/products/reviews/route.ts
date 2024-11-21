@@ -15,9 +15,9 @@ export async function GET(req: NextRequest) {
     if (reviews.error || reviews.status !== 200) {
       throw new Error("Can't find the product reviews by slug");
     }
-    return NextResponse.json(JSON.stringify(reviews.data), { status: 200 });
+    return new NextResponse(JSON.stringify(reviews.data), { status: 200 });
   } catch (e) {
-    return NextResponse.json(e, { status: 500 });
+    return new NextResponse(JSON.stringify(e), { status: 500 });
   }
 }
 
@@ -32,8 +32,8 @@ export async function POST(req: NextRequest) {
     if (reviews.error || reviews.status !== 200) {
       throw new Error("Can't add a review");
     }
-    return NextResponse.json(JSON.stringify("OK"), { status: 200 });
+    return new NextResponse(JSON.stringify("OK"), { status: 200 });
   } catch (e) {
-    return NextResponse.json(e, { status: 500 });
+    return new NextResponse(JSON.stringify(e), { status: 500 });
   }
 }

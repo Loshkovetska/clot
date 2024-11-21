@@ -16,8 +16,8 @@ export async function GET(req: NextRequest, context: any) {
     if (product.error || product.status !== 200) {
       throw new Error("Can't find the product by slug");
     }
-    return NextResponse.json(JSON.stringify(product.data), { status: 200 });
+    return new NextResponse(JSON.stringify(product.data), { status: 200 });
   } catch (e) {
-    return NextResponse.json(e, { status: 410 });
+    return new NextResponse(JSON.stringify(e), { status: 410 });
   }
 }

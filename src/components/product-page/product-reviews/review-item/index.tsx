@@ -1,9 +1,14 @@
 import Image from "next/image";
+import { useMemo } from "react";
 
 import { StarIcon } from "@/components/icons";
+import { generateReviewDate } from "@/lib/utils/review";
 import { ReviewType } from "@/types/review";
 
 export default function ReviewItem({ review }: { review: ReviewType }) {
+  const date = useMemo(() => generateReviewDate(review.date), [review]);
+
+  const stars = Array(5).fill("star");
   return (
     <div className="flex flex-col gap-1">
       <div className="flex items-center justify-between">
@@ -20,15 +25,13 @@ export default function ReviewItem({ review }: { review: ReviewType }) {
           </span>
         </div>
         <div className="flex items-center">
-          {Array(5)
-            .fill("star")
-            .map((star, ind) => (
-              <StarIcon key={star + ind} />
-            ))}
+          {stars.map((star, ind) => (
+            <StarIcon key={star + ind} />
+          ))}
         </div>
       </div>
       <p className="text-sm text-black-50">{review?.text}</p>
-      <span className="text-sm"> {review?.date.toDateString()}</span>
+      <span className="text-sm">{date}</span>
       {/* todo: add media to review */}
     </div>
   );

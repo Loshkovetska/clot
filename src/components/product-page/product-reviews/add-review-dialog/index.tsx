@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { StarIcon } from "@/components/icons";
 import RateBlock from "@/components/product-page/product-reviews/add-review-dialog/rate-block";
 import { Button } from "@/components/ui/button";
 import {
@@ -65,7 +66,11 @@ export default function AddReviewDialog({
       open={isOpen}
       onOpenChange={handleDialogState}
       title="Rate Product"
-      trigger={<Button className="max-w-[240px]">Add Review</Button>}
+      trigger={
+        <Button className="max-w-[240px]">
+          <StarIcon /> Add Review
+        </Button>
+      }
       buttonsBlock={
         <Button
           onClick={form.handleSubmit(addReview)}

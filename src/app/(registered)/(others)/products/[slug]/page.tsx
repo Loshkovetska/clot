@@ -27,9 +27,7 @@ export default async function Page({ params }: { params: any }) {
         funcButton={{ type: "fav", href: ROUTES.favs, variant: "light" }}
       />
       {product?.state?.data && (
-        <ProductContent
-          product={JSON.parse(product?.state?.data as string) as ProductType}
-        />
+        <ProductContent product={product?.state?.data as ProductType} />
       )}
     </>
   );

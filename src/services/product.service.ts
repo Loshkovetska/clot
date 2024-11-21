@@ -31,6 +31,8 @@ class ProductServiceClass {
       params: { id },
     });
 
+    console.log("RESPONS", response.data);
+
     return response.data;
   }
 
