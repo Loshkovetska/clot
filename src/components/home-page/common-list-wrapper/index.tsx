@@ -1,3 +1,4 @@
+import CommonCarousel from "@/components/common/common-carousel";
 import CommonListHeader from "@/components/home-page/common-list-header";
 import { CommonListPropType } from "@/components/home-page/type";
 import { cn } from "@/lib/utils";
@@ -5,13 +6,15 @@ import { cn } from "@/lib/utils";
 type CommonListWrapperPropType = {
   listClassName?: string;
   data: React.ReactNode[];
+  slideClassName: string;
 } & CommonListPropType;
 
 export default function CommonListWrapper({
   title,
   href,
-  listClassName,
   data,
+  listClassName,
+  slideClassName,
 }: CommonListWrapperPropType) {
   return (
     <div className="flex w-full flex-col items-center gap-4">
@@ -19,9 +22,11 @@ export default function CommonListWrapper({
         title={title}
         href={href}
       />
-      <div className={cn("flex items-center gap-3 w-full", listClassName)}>
-        {data}
-      </div>
+      <CommonCarousel
+        className={cn("flex items-center w-full", listClassName)}
+        slideClassName={slideClassName}
+        data={data}
+      />
     </div>
   );
 }

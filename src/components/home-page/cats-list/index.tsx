@@ -31,6 +31,8 @@ export default function CatsList({ amount }: { amount?: number }) {
         title="Categories"
         href={ROUTES.categories}
         data={list ?? []}
+        slideClassName="basis-1/7 pl-3"
+        listClassName="-ml-3"
       />
     );
 

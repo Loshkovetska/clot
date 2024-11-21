@@ -24,7 +24,7 @@ export default function ProductsList({
         <ProductCard
           key={item.id}
           {...(item as any)}
-          className="min-w-[156px]"
+          className="max-w-none"
         />
       )),
     [data]
@@ -36,7 +36,8 @@ export default function ProductsList({
       title={title}
       href={href}
       data={list ?? []}
-      listClassName="snap-start overflow-hidden scroll-smooth snap-mandatory select-none"
+      slideClassName="basis-1/2 md:basis-1/4 lg:basis-1/6 pl-3"
+      listClassName="select-none -ml-3"
     />
   );
 }
