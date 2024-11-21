@@ -68,6 +68,9 @@ export default function ProductMainInfo({ product }: { product: ProductType }) {
             mainPriceClassName="text-primary"
           />
         </div>
+        <p className="text-sm  text-black-50 max-lg:hidden">
+          {product.description}
+        </p>
         <div className="flex flex-col gap-3">
           <ProductVariants
             currentCombination={currentCombination}
