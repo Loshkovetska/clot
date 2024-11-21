@@ -10,12 +10,14 @@ type CommonCarouselPropType = {
   data: any[];
   slideClassName: string;
   className?: string;
+  carouselClassName?: string;
 } & CarouselProps;
 
 export default function CommonCarousel({
   data,
   slideClassName,
   className,
+  carouselClassName,
   ...props
 }: CommonCarouselPropType) {
   return (
@@ -23,7 +25,10 @@ export default function CommonCarousel({
       opts={{
         slidesToScroll: 2,
       }}
-      className="[&>*:nth-child(1)]:w-[calc(100%+48px) w-full [&>*:nth-child(1)]:-mx-6 [&>*:nth-child(1)]:px-6"
+      className={cn(
+        "[&>*:nth-child(1)]:w-[calc(100%+48px) w-full [&>*:nth-child(1)]:-mx-6 [&>*:nth-child(1)]:px-6",
+        carouselClassName
+      )}
       {...props}
     >
       <CarouselContent className={className}>

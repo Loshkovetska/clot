@@ -1,11 +1,14 @@
 import Image from "next/image";
+import { useMemo } from "react";
+
+import CommonCarousel from "@/components/common/common-carousel";
 
 export default function ProductCarousel({ images }: { images?: string[] }) {
-  return (
-    <div className="max-w-screen hide-scrollbar flex snap-x items-center gap-3 overflow-x-scroll max-lg:-mx-6 max-lg:px-6 lg:max-w-[555px] lg:gap-5">
-      {images?.map((image, ind) => (
+  const media = useMemo(
+    () =>
+      images?.map((image, ind) => (
         <div
-          className="relative h-[468px] min-w-[320px] max-w-[320px] snap-center max-lg:h-[248px] max-lg:min-w-[161px] max-lg:max-w-[161px]"
+          className="relative h-[369px] w-full max-md:h-[60vw] md:max-lg:h-[48vw]"
           key={`${image}-${ind}`}
         >
           <Image
@@ -14,7 +17,14 @@ export default function ProductCarousel({ images }: { images?: string[] }) {
             fill
           />
         </div>
-      ))}
-    </div>
+      )) || [],
+    [images]
+  );
+  return (
+    <CommonCarousel
+      carouselClassName="lg:min-w-[520px] lg:max-w-[520px] [&>*:nth-child(1)]:w-full [&>*:nth-child(1)]:px-0 [&>*:nth-child(1)]:mx-0  max-md:[&>*:nth-child(1)]:w-[calc(100%+48px)] w-full max-md:[&>*:nth-child(1)]:-mx-6 max-md:[&>*:nth-child(1)]:px-6"
+      data={media}
+      slideClassName="basis-1/2 pl-3 lg:pl-5"
+    />
   );
 }
