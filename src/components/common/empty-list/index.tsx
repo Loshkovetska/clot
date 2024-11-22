@@ -20,9 +20,14 @@ export default function EmptyList({ type, className }: EmptyListPropType) {
         src={data.imageUrl?.src}
         alt="empty-list"
       />
-      <h3 className="text-center text-3xl">{data.title}</h3>
+      <h3 className="text-center text-xl">{data.title}</h3>
       <Link href={data.buttonLink}>
-        <Button>{data.buttonTitle}</Button>
+        <Button
+          size="lg"
+          className="px-6 py-4"
+        >
+          {data.buttonTitle}
+        </Button>
       </Link>
     </div>
   );

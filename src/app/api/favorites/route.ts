@@ -1,23 +1,18 @@
-import { getAuth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 import createClient from "@/lib/config/supabase";
+import { validateUser } from "@/lib/helpers/error-helper";
 
 export async function GET(req: NextRequest) {
   try {
     const supabase = await createClient();
-    const { userId } = getAuth(req);
-
-    if (!userId) {
-      return new NextResponse(JSON.stringify("Unauthorized!"), {
-        status: 401,
-      });
-    }
+    const auth = validateUser(req);
+    if (auth instanceof NextResponse) return auth;
 
     const reviews = await supabase
       .from("favorites")
       .select()
-      .eq("user_id", userId);
+      .eq("user_id", auth.userId);
 
     if (reviews.error || reviews.status !== 200) {
       throw new Error("Can't get user fav list");
@@ -33,17 +28,12 @@ export async function POST(req: NextRequest) {
     const supabase = await createClient();
     const params = await req.json();
 
-    const { userId } = getAuth(req);
-
-    if (!userId) {
-      return new NextResponse(JSON.stringify("Unauthorized!"), {
-        status: 401,
-      });
-    }
+    const auth = validateUser(req);
+    if (auth instanceof NextResponse) return auth;
 
     const reviews = await supabase.from("favorites").insert({
       ...params,
-      user_id: userId,
+      user_id: auth.userId,
     });
 
     if (reviews.error || reviews.status !== 200) {

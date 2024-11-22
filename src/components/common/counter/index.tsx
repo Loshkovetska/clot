@@ -1,4 +1,4 @@
-import { MinusIcon, PlusIcon } from "@/components/icons";
+import { MinusIcon, PlusIcon, Spinner } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -8,6 +8,7 @@ type CounterPropType = {
   variant: "icon" | "icon-sm";
   disabledMinus?: boolean;
   disabledPlus?: boolean;
+  loading?: boolean;
   handleCountChange: (num: number) => void;
 };
 export default function Counter({
@@ -16,9 +17,11 @@ export default function Counter({
   count,
   disabledMinus,
   disabledPlus,
+  loading,
   handleCountChange,
 }: CounterPropType) {
-  const valueClassName = variant === "icon-sm" ? "text-sm" : "text-md";
+  const valueClassName =
+    variant === "icon-sm" ? "text-sm w-[16px]" : "text-md w-[20px]";
 
   return (
     <div className={cn("flex items-center gap-2", className)}>
@@ -29,8 +32,8 @@ export default function Counter({
       >
         <MinusIcon />
       </Button>
-      <span className={cn("w-[20px] text-center", valueClassName)}>
-        {count}
+      <span className={cn("text-center", valueClassName)}>
+        {loading ? <Spinner className="size-4 [&>*]:text-primary" /> : count}
       </span>
       <Button
         disabled={disabledPlus}

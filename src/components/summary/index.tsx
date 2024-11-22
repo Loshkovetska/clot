@@ -14,7 +14,7 @@ export default function Summary({
   totalPrice,
 }: SummaryType) {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex grow flex-col justify-end gap-3">
       <div className="flex items-center justify-between">
         <span className="text-md text-black-50">Subtotal</span>
         <span className="text-right text-md text-black-100">

@@ -49,7 +49,7 @@ export default function Header({
         className={cn(
           "text-2xl",
           {
-            "text-md": !showUser,
+            "text-md font-bold": !showUser,
           },
           titleClassName
         )}
