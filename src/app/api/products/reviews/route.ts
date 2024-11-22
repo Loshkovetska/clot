@@ -1,3 +1,4 @@
+import { getAuth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 import createClient from "@/lib/config/supabase";
@@ -26,8 +27,18 @@ export async function POST(req: NextRequest) {
     const supabase = await createClient();
     const params = await req.json();
 
-    const reviews = await supabase.from("reviews").insert(params);
-    //   todo add user condition
+    const { userId } = getAuth(req);
+
+    if (!userId) {
+      return new NextResponse(JSON.stringify("Unauthorized!"), {
+        status: 401,
+      });
+    }
+
+    const reviews = await supabase.from("reviews").insert({
+      ...params,
+      user_id: userId,
+    });
 
     if (reviews.error || reviews.status !== 200) {
       throw new Error("Can't add a review");
