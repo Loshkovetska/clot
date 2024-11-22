@@ -8,6 +8,7 @@ import { useTheme } from "@/providers/theme-provider";
 
 export default function Providers(props: PropsWithChildren) {
   const { theme } = useTheme();
+
   return (
     <ClerkProvider appearance={generateClerkTheme(theme === "light")}>
       <QueryProvider>{props.children}</QueryProvider>
