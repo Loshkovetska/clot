@@ -1,7 +1,7 @@
 "use client";
 import BackButton from "@/components/common/buttons/back-button";
 import FuncButton from "@/components/common/buttons/func-button";
-import HeaderUser from "@/components/common/header/header-user";
+import UserAvatar from "@/components/common/user-avatar";
 import { cn } from "@/lib/utils";
 
 type HeaderPropType = {
@@ -38,7 +38,7 @@ export default function Header({
         className
       )}
     >
-      {showUser && <HeaderUser />}
+      {showUser && <UserAvatar />}
       {!showUser && (
         <BackButton
           className={cn("absolute left-5 mb-0", backButtonClassName)}
