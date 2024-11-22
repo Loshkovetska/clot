@@ -40,7 +40,7 @@ export default function ProductCard(
         </Button>
       </div>
       <div className="flex w-full grow flex-col gap-2 px-2">
-        <h3 className="text-md line-clamp-1">{title}</h3>
+        <h3 className="line-clamp-1 text-md">{title}</h3>
         <ProductPrice
           price={combinations?.[0].price as number}
           discount={combinations?.[0]?.discount as number}

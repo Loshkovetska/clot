@@ -16,10 +16,10 @@ export default function SuccessfullPayment() {
         className="mb-16"
       />
       <div className="flex w-full flex-col items-center gap-6 rounded-t-2xl bg-white px-6 pb-14 pt-10">
-        <span className="text-center text-[32px] font-bold">
+        <span className="text-center text-2xl font-bold">
           Order Placed Successfully
         </span>
-        <p className="text-md text-center text-black-50">
+        <p className="text-center text-md text-black-50">
           You will recieve an email confirmation
         </p>
         <Link

@@ -69,12 +69,12 @@ export default function ProductMainInfo({ product }: { product: ProductType }) {
       product_id: product.id,
       combination: JSON.stringify(currentCombination),
     });
-  }, [currentCombination, amount, product]);
+  }, [currentCombination, amount, product, mutate]);
   return (
     <>
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-3">
-          <h1 className="max-lg:text-md text-3xl">{product.title}</h1>
+          <h1 className="text-3xl max-lg:text-md">{product.title}</h1>
           <ProductPrice
             price={currentCombination.price as number}
             discount={currentCombination.discount as number}

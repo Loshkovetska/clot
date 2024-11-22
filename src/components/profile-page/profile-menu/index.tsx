@@ -10,7 +10,7 @@ export default function ProfileMenu() {
         <Link
           href={item.href}
           key={item.title}
-          className="text-md flex w-full items-center justify-between gap-4 rounded-lg bg-light-100 px-3 py-4"
+          className="flex w-full items-center justify-between gap-4 rounded-lg bg-light-100 px-3 py-4 text-md"
         >
           {item.title}
           <ChevronLeftIcon className="rotate-180" />
