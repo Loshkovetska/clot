@@ -1,10 +1,4 @@
-type SummaryType = {
-  discount?: number;
-  subTotal: number;
-  shippingCost: number;
-  taxCost: number;
-  totalPrice: number;
-};
+import { CartSummaryType } from "@/types/cart";
 
 export default function Summary({
   discount,
@@ -12,38 +6,32 @@ export default function Summary({
   shippingCost,
   taxCost,
   totalPrice,
-}: SummaryType) {
+}: CartSummaryType) {
   return (
     <div className="flex grow flex-col justify-end gap-3">
       <div className="flex items-center justify-between">
         <span className="text-md text-black-50">Subtotal</span>
-        <span className="text-right text-md text-black-100">
-          ${subTotal.toFixed(2)}
-        </span>
+        <span className="text-right text-md ">${subTotal.toFixed(2)}</span>
       </div>
       <div className="flex items-center justify-between">
         <span className="text-md text-black-50">Shipping Cost</span>
-        <span className="text-right text-md text-black-100">
-          ${shippingCost.toFixed(2)}
-        </span>
+        <span className="text-right text-md ">${shippingCost.toFixed(2)}</span>
       </div>
       <div className="flex items-center justify-between">
         <span className="text-md text-black-50">Tax</span>
-        <span className="text-right text-md text-black-100">
-          ${taxCost.toFixed(2)}
-        </span>
+        <span className="text-right text-md ">${taxCost.toFixed(2)}</span>
       </div>
       {discount && (
         <div className="flex items-center justify-between">
           <span className="text-md text-black-50">Discount</span>
-          <span className="text-right text-md text-black-100">
+          <span className="text-right text-md text-success-light">
             -{discount.toFixed(2)}$
           </span>
         </div>
       )}
       <div className="flex items-center justify-between">
         <span className="text-md text-black-50">Total</span>
-        <span className="text-right text-md font-bold text-black-100">
+        <span className="text-right text-md font-bold ">
           ${totalPrice.toFixed(2)}
         </span>
       </div>

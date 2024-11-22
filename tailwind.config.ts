@@ -35,6 +35,7 @@ export default {
         "black-50": "rgba(39,39,39,0.5)",
         "black-100": "#272727",
         "light-100": "#F4F4F4",
+        "success-light": "#5FB567",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

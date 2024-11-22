@@ -1,13 +1,22 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useMemo } from "react";
 import { toast } from "sonner";
 
 import { QUERY_KEYS } from "@/lib/constants/querykeys";
-import { getCartSummary } from "@/lib/utils/cart";
 import CartService from "@/services/cart.service";
-import { DeleteCartParams, UpdateCartParams } from "@/types/cart";
+import {
+  ApplyCouponParams,
+  DeleteCartParams,
+  UpdateCartParams,
+} from "@/types/cart";
 
-const useCart = (enabled = true) => {
+type UseCartProps =
+  | {
+      enabled?: boolean;
+      onApplySuccess?: () => void;
+    }
+  | { enabled: true; onApplySuccess?: () => void };
+
+const useCart = ({ enabled, onApplySuccess }: UseCartProps) => {
   const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery({
@@ -18,35 +27,41 @@ const useCart = (enabled = true) => {
 
   const { mutate: updateCart, isPending } = useMutation({
     mutationFn: (params: UpdateCartParams) => CartService.updateCart(params),
-    onSuccess: () => {
-      toast.success("Cart was successfully updated");
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.CART],
-      });
-    },
+    onSuccess: () => invalidateCart("Cart was successfully updated"),
   });
 
   const { mutate: deleteCartItems, isPending: isDeletePending } = useMutation({
     mutationFn: (params: DeleteCartParams) =>
       CartService.deleteCartItems(params),
-    onSuccess: () => {
-      toast.success("Cart was successfully updated");
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.CART],
-      });
-    },
+    onSuccess: () => invalidateCart("Cart was successfully updated"),
   });
 
-  const cartSummary = useMemo(() => getCartSummary(data), [data]);
+  const { mutate: applyCoupon, isPending: isDiscountPending } = useMutation({
+    mutationFn: (params: ApplyCouponParams) => CartService.applyCoupon(params),
+    onSuccess: () => {
+      invalidateCart("Discount was successfully applied!");
+      onApplySuccess?.();
+    },
+    onError: () => toast.error("Discount wasn't applied! Maybe it's expired."),
+  });
+
+  function invalidateCart(message: string) {
+    toast.success(message);
+    queryClient.invalidateQueries({
+      queryKey: [QUERY_KEYS.CART],
+    });
+  }
 
   return {
-    cartItems: data || [],
+    cartItems: data?.cartItems || [],
+    cartSummary: data?.cartSummary,
     isLoading,
-    cartSummary,
     isPending,
     isDeletePending,
+    isDiscountPending,
     updateCart,
     deleteCartItems,
+    applyCoupon,
   };
 };
 export default useCart;

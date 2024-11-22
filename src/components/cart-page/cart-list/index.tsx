@@ -6,11 +6,12 @@ import useCart from "@/lib/hooks/useCart";
 import { CartItemType } from "@/types/cart";
 
 export default function CartList({ items }: { items: CartItemType[] }) {
-  const { deleteCartItems } = useCart(false);
+  const { deleteCartItems } = useCart({ enabled: false });
 
   const handleDelete = useCallback((id?: string) => {
     deleteCartItems({ id });
   }, []);
+
   return (
     <div className="flex flex-col gap-4">
       <Button

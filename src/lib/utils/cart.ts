@@ -8,6 +8,7 @@ export const getCartSummary = (items?: CartItemType[]) => {
       totalPrice: 0,
       taxCost: 0,
       shippingCost: 0,
+      discount: 0,
     };
 
   const subTotal = items.reduce((prevItem, currItem) => {
@@ -27,12 +28,18 @@ export const getCartSummary = (items?: CartItemType[]) => {
     return prevItem + currItem.product.shippingCost;
   }, 0);
 
-  const totalPrice = subTotal + taxCost + shippingCost;
+  const discount = items?.[0]?.discount || 0;
+
+  const oldPrice = subTotal + taxCost + shippingCost;
+
+  const totalPrice = oldPrice - getProductPrice(oldPrice, discount);
+
   return {
     subTotal,
     totalPrice,
     taxCost,
     shippingCost,
+    discount: getProductPrice(oldPrice, discount),
   };
 };
 

@@ -19,7 +19,7 @@ export default function CommonInfoBlock({
           <span className="text-sm text-black-50">
             {type === "address" ? "Shipping Address" : "Payment Card"}
           </span>
-          <span className="line-clamp-1 text-sm text-black-100">
+          <span className="line-clamp-1 text-sm ">
             {type === "address" ? address : card}
           </span>
         </div>

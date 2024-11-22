@@ -10,7 +10,9 @@ import { CartItemType } from "@/types/cart";
 export default function CartItem(cartItem: CartItemType) {
   const { product, amount } = cartItem;
 
-  const { updateCart, deleteCartItems, isPending } = useCart(false);
+  const { updateCart, deleteCartItems, isPending } = useCart({
+    enabled: false,
+  });
 
   const { totalPrice, variant, availableAmount } = useMemo(
     () => getCartItemInfo(cartItem),
@@ -55,12 +57,10 @@ export default function CartItem(cartItem: CartItemType) {
         <div className="flex items-center justify-between">
           <div className="flex flex-wrap items-center gap-4">
             {variant.map((sub: any) => (
-              <div>
+              <div key={sub[0]}>
                 <span className="text-sm text-black-50">{sub[0]}</span>
                 {" - "}
-                <span className="text-sm font-bold text-black-100">
-                  {sub[1]}
-                </span>
+                <span className="text-sm font-bold ">{sub[1]}</span>
               </div>
             ))}
           </div>

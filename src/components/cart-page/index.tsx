@@ -9,7 +9,7 @@ import { ROUTES } from "@/lib/constants/routes";
 import useCart from "@/lib/hooks/useCart";
 
 export default function CartContent() {
-  const { cartSummary, cartItems, isLoading } = useCart();
+  const { cartSummary, cartItems, isLoading } = useCart({});
 
   if (!isLoading && !cartItems.length) {
     return (
@@ -23,8 +23,13 @@ export default function CartContent() {
   return (
     <>
       <CartList items={cartItems} />
-      <Summary {...cartSummary} />
-      <CouponBlock />
+      {cartSummary && (
+        <>
+          <Summary {...cartSummary} />
+          <CouponBlock />
+        </>
+      )}
+
       <BottomBar
         actionLink={ROUTES.checkout}
         actionTitle="Checkout"

@@ -6,6 +6,19 @@ type AddToCartParams = {
   amount: number;
 };
 
+type CartResponseType = {
+  cartItems: CartItemType[];
+  cartSummary: CartSummaryType;
+};
+
+type CartSummaryType = {
+  subTotal: number;
+  totalPrice: number;
+  taxCost: number;
+  shippingCost: number;
+  discount?: number;
+};
+
 type CartItemType = {
   amount: number;
   combination: string;
@@ -13,6 +26,7 @@ type CartItemType = {
   product: ProductType;
   product_id: string;
   user_id: string;
+  discount: number;
 };
 
 type UpdateCartParams = {
@@ -20,13 +34,18 @@ type UpdateCartParams = {
   amount: number;
 };
 
+type ApplyCouponParams = { coupon: string };
+
 type DeleteCartParams = {
   id?: string;
 };
 
 export type {
   AddToCartParams,
+  ApplyCouponParams,
   CartItemType,
+  CartResponseType,
+  CartSummaryType,
   DeleteCartParams,
   UpdateCartParams,
 };

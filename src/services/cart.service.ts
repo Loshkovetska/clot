@@ -3,7 +3,8 @@ import { AxiosInstance } from "axios";
 import { ROUTE_CLIENT } from "@/lib/config/requests";
 import {
   AddToCartParams,
-  CartItemType,
+  ApplyCouponParams,
+  CartResponseType,
   DeleteCartParams,
   UpdateCartParams,
 } from "@/types/cart";
@@ -21,13 +22,19 @@ class CartServiceClass {
     return response.data;
   }
 
-  async getCart(): Promise<CartItemType[]> {
+  async getCart(): Promise<CartResponseType> {
     const response = await this.routeClient.get("cart");
 
     return response.data;
   }
 
   async updateCart(params: UpdateCartParams): Promise<string> {
+    const response = await this.routeClient.put("cart", params);
+
+    return response.data;
+  }
+
+  async applyCoupon(params: ApplyCouponParams): Promise<string> {
     const response = await this.routeClient.put("cart", params);
 
     return response.data;

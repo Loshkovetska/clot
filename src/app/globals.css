@@ -60,7 +60,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border text-black-100;
   }
   body {
     @apply bg-background text-foreground;

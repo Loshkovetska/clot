@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import createClient from "@/lib/config/supabase";
 import { validateUser } from "@/lib/helpers/error-helper";
+import { getCartSummary } from "@/lib/utils/cart";
 
 export async function GET(req: NextRequest) {
   try {
@@ -20,7 +21,12 @@ export async function GET(req: NextRequest) {
     if (cart.error || cart.status !== 200) {
       throw new Error("Can't find user shop cart");
     }
-    return new NextResponse(JSON.stringify(cart.data), { status: 200 });
+
+    const response = {
+      cartItems: cart.data,
+      cartSummary: getCartSummary(cart.data),
+    };
+    return new NextResponse(JSON.stringify(response), { status: 200 });
   } catch (e) {
     return new NextResponse(JSON.stringify(e), { status: 500 });
   }
@@ -59,10 +65,41 @@ export async function PUT(req: NextRequest) {
     const copy = JSON.parse(JSON.stringify(params));
     delete copy.id;
 
-    const cart = await supabase.from("cart").update(copy).eq("id", params.id);
+    let cart: any;
+
+    if (params.coupon) {
+      const coupon = await supabase
+        .from("coupons")
+        .select()
+        .eq("coupon_code", params?.coupon)
+        .single();
+
+      if (coupon.error || coupon.status !== 200) {
+        throw new Error("Can't find such coupon");
+      }
+
+      const today = new Date(new Date().toDateString());
+      const expiredDate = new Date(
+        new Date(coupon.data.expired_date).toDateString()
+      );
+
+      if (expiredDate === today) {
+        throw new Error("Coupon is expired!");
+      }
+
+      await supabase
+        .from("coupons")
+        .update({ expired_date: new Date() })
+        .eq("coupon_code", coupon.data.coupon_code);
+
+      cart = await supabase
+        .from("cart")
+        .update({ discount: coupon.data.discount })
+        .eq("user_id", auth.userId);
+    } else cart = await supabase.from("cart").update(copy).eq("id", params.id);
 
     if (cart.error) {
-      throw new Error("Can't add a product to shop cart");
+      throw new Error("Can't update the shop cart");
     }
     return new NextResponse(JSON.stringify("OK"), { status: 200 });
   } catch (e) {
