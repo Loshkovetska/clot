@@ -10,16 +10,16 @@ const inputVariants = cva(
       variant: {
         default: "rounded-lg",
         rounded: "rounded-[24px]",
-        destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+        destructive: "rounded-lg border border-destructive shadow-sm",
       },
-      size: {
+      sizeB: {
         default: "h-10 px-4 py-2",
+        lg: "h-14 px-4 py-3",
       },
     },
     defaultVariants: {
       variant: "default",
-      size: "default",
+      sizeB: "default",
     },
   }
 );
@@ -40,13 +40,13 @@ const Input = React.forwardRef<HTMLInputElement, InputPropType>(
       iconLeft,
       iconRight,
       variant,
-      size,
+      sizeB,
       ...props
     },
     ref
   ) => {
     return (
-      <div className={cn(inputVariants({ variant, size, className }))}>
+      <div className={cn(inputVariants({ variant, sizeB, className }))}>
         {iconLeft}
         <input
           type={type}

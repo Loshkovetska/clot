@@ -9,6 +9,23 @@ export const ROUTES = {
   notifications: "/notifications",
   orders: "/orders",
   profile: "/profile",
-  favs: "/favorites",
+  favs: "/profile/favorites",
+  addresses: "/profile/addresses",
+  cards: "/profile/cards",
   checkout: "/checkout",
 };
+
+export const PROFILE_MENU = [
+  {
+    title: "Address",
+    href: ROUTES.addresses,
+  },
+  {
+    title: "Wishlist",
+    href: ROUTES.favs,
+  },
+  {
+    title: "Payment",
+    href: ROUTES.cards,
+  },
+];
