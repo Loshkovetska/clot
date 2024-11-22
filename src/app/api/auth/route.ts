@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     const svix_signature = headerPayload.get("svix-signature");
 
     if (!svix_id || !svix_timestamp || !svix_signature) {
-      return new Response("Error: Missing Svix headers", {
+      return new NextResponse("Error: Missing Svix headers", {
         status: 400,
       });
     }
@@ -32,14 +32,14 @@ export async function POST(req: NextRequest) {
         "svix-signature": svix_signature,
       }) as WebhookEvent;
     } catch (err) {
-      return new Response("Error: Verification error", {
+      return new NextResponse("Error: Verification error", {
         status: 400,
       });
     }
 
     const supabase = await createClient();
 
-    const user = await supabase.from("users").insert({
+    const user = await supabase.from("users").upsert({
       firstname: evt.data.first_name,
       lastname: evt.data.last_name,
       imageUrl: evt.data.image_url,
