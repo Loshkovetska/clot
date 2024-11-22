@@ -6,6 +6,7 @@ type BottomBarPropType = {
   price?: number;
   actionTitle?: string;
   actionLink?: string;
+  loading?: boolean;
   action?: () => void;
 };
 
@@ -13,6 +14,7 @@ export default function BottomBar({
   price,
   actionTitle,
   actionLink,
+  loading,
   action,
 }: BottomBarPropType) {
   return (
@@ -32,6 +34,7 @@ export default function BottomBar({
             onClick={action}
             variant="transparent"
             className="text-white"
+            loading={loading}
           >
             {actionTitle}
           </Button>

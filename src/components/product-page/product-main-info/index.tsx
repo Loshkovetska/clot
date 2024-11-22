@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 
@@ -6,6 +7,8 @@ import Counter from "@/components/common/counter";
 import ProductPrice from "@/components/home-page/products-list/product-price";
 import ProductVariants from "@/components/product-page/product-main-info/product-variants";
 import { getProductCombination } from "@/lib/utils/product";
+import CartService from "@/services/cart.service";
+import { AddToCartParams } from "@/types/cart";
 import { ProductType, ProductVariantType } from "@/types/product";
 
 export default function ProductMainInfo({ product }: { product: ProductType }) {
@@ -14,6 +17,13 @@ export default function ProductMainInfo({ product }: { product: ProductType }) {
   const [currentCombination, setCombination] = useState(
     product.combinations?.[0]
   );
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (params: AddToCartParams) =>
+      CartService.addProductToCart(params),
+    onSuccess: () => toast.success("Product was successfully added to cart!"),
+    onError: () => toast.error("Something went wrong!"),
+  });
 
   const price = useMemo(() => {
     const initPrice = currentCombination?.price as number;
@@ -54,8 +64,12 @@ export default function ProductMainInfo({ product }: { product: ProductType }) {
   );
 
   const addToCart = useCallback(() => {
-    //todo: add functionality for adding to cart
-  }, []);
+    mutate({
+      amount,
+      product_id: product.id,
+      combination: JSON.stringify(currentCombination),
+    });
+  }, [currentCombination, amount, product]);
   return (
     <>
       <div className="flex flex-col gap-8">
@@ -91,6 +105,7 @@ export default function ProductMainInfo({ product }: { product: ProductType }) {
         </div>
       </div>
       <BottomBar
+        loading={isPending}
         price={price}
         action={addToCart}
         actionTitle="Add to Bag"

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React from "react";
 
 import { NAVBAR_ITEMS } from "@/components/common/navbar/constants";
 import { cn } from "@/lib/utils";
@@ -12,13 +13,17 @@ const NavBar = () => {
       {NAVBAR_ITEMS.map((item) => (
         <Link
           href={item.path}
-          className={cn(
-            "flex items-center justify-center p-2 hover:text-primary",
-            pathname === item.path ? "text-primary" : "text-black-50"
-          )}
+          className="flex items-center justify-center p-2"
           key={item.id}
         >
-          {item.icon}
+          {React.cloneElement(item.icon, {
+            className: cn(
+              "hover:[&>*]:text-primary",
+              pathname === item.path
+                ? "[&>*]:text-primary"
+                : "[&>*]:text-black-50"
+            ),
+          })}
         </Link>
       ))}
     </div>

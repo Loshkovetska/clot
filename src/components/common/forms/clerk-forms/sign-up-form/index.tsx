@@ -6,11 +6,11 @@ export default function SignUpForm() {
     <>
       <ClerkInput
         name="firstName"
-        placeholder="FirstName"
+        placeholder="Firstname"
       />
       <ClerkInput
         name="lastName"
-        placeholder="LastName"
+        placeholder="Lastname"
       />
       <SignInForm />
     </>
