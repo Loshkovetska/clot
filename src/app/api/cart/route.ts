@@ -1,5 +1,4 @@
 import { auth, getAuth } from "@clerk/nextjs/server";
-import { AxiosError } from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 import createClient from "@/lib/config/supabase";
@@ -51,7 +50,6 @@ export async function POST(req: NextRequest) {
     }
     return new NextResponse(JSON.stringify("OK"), { status: 200 });
   } catch (e) {
-    console.log((e as AxiosError).response?.data);
     return new NextResponse(JSON.stringify(e), { status: 500 });
   }
 }
