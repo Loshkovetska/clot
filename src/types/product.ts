@@ -12,6 +12,7 @@ type ProductType = {
   gender: "male" | "female";
   category_id: string;
   variants: ProductVariantType[];
+  isFavorite: boolean;
 };
 
 type ProductVariantType = {

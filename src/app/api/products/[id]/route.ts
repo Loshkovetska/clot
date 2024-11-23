@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import createClient from "@/lib/config/supabase";
+import { validateUser } from "@/lib/helpers/error-helper";
 
 export async function GET(req: NextRequest, context: any) {
   try {
+    const auth = validateUser(req);
+    if (auth instanceof NextResponse) return auth;
+
     const supabase = await createClient();
     const { id } = await context?.params;
 
@@ -16,7 +20,18 @@ export async function GET(req: NextRequest, context: any) {
     if (product.error || product.status !== 200) {
       throw new Error("Can't find the product by slug");
     }
-    return new NextResponse(JSON.stringify(product.data), { status: 200 });
+    const isFav = await supabase
+      .from("favorites")
+      .select()
+      .eq("product_id", product.data.id)
+      .eq("user_id", auth.userId);
+
+    const response = {
+      ...product.data,
+      isFavorite: !!isFav.data,
+    };
+
+    return new NextResponse(JSON.stringify(response), { status: 200 });
   } catch (e) {
     return new NextResponse(JSON.stringify(e), { status: 410 });
   }

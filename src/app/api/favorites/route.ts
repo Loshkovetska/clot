@@ -9,15 +9,21 @@ export async function GET(req: NextRequest) {
     const auth = validateUser(req);
     if (auth instanceof NextResponse) return auth;
 
-    const reviews = await supabase
+    const favorites = await supabase
       .from("favorites")
-      .select()
+      .select("product:product_id(*), combination")
       .eq("user_id", auth.userId);
 
-    if (reviews.error || reviews.status !== 200) {
+    if (favorites.error || favorites.status !== 200) {
       throw new Error("Can't get user fav list");
     }
-    return new NextResponse(JSON.stringify(reviews.data), { status: 200 });
+
+    const response = favorites.data.map((fav) => ({
+      ...fav.product,
+      isFavorite: true,
+      combinations: [JSON.parse(fav.combination)],
+    }));
+    return new NextResponse(JSON.stringify(response), { status: 200 });
   } catch (e) {
     return new NextResponse(JSON.stringify(e), { status: 500 });
   }
@@ -31,12 +37,14 @@ export async function POST(req: NextRequest) {
     const auth = validateUser(req);
     if (auth instanceof NextResponse) return auth;
 
-    const reviews = await supabase.from("favorites").insert({
+    delete params.type;
+
+    const favorites = await supabase.from("favorites").insert({
       ...params,
       user_id: auth.userId,
     });
 
-    if (reviews.error || reviews.status !== 200) {
+    if (favorites.error) {
       throw new Error("Can't add the product to favorites");
     }
     return new NextResponse(JSON.stringify("OK"), { status: 200 });
@@ -47,15 +55,19 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    const auth = validateUser(req);
+    if (auth instanceof NextResponse) return auth;
+
     const supabase = await createClient();
     const params = await req.json();
 
-    const reviews = await supabase
+    const favorites = await supabase
       .from("favorites")
       .delete()
-      .eq("product_id", params.product_id);
+      .eq("product_id", params.product_id)
+      .eq("user_id", auth.userId);
 
-    if (reviews.error || reviews.status !== 200) {
+    if (favorites.error) {
       throw new Error("Can't delete the product from fav list ");
     }
     return new NextResponse(JSON.stringify("OK"), { status: 200 });
