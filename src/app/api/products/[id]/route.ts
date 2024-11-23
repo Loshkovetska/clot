@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import createClient from "@/lib/config/supabase";
-import { validateUser } from "@/lib/helpers/error-helper";
 
 export async function GET(req: NextRequest, context: any) {
   try {
-    const auth = validateUser(req);
-    if (auth instanceof NextResponse) return auth;
+    const params = Object.fromEntries(req.nextUrl.searchParams);
 
     const supabase = await createClient();
     const { id } = await context?.params;
@@ -24,7 +22,8 @@ export async function GET(req: NextRequest, context: any) {
       .from("favorites")
       .select()
       .eq("product_id", product.data.id)
-      .eq("user_id", auth.userId);
+      .eq("user_id", params.param)
+      .single();
 
     const response = {
       ...product.data,

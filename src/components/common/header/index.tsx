@@ -8,11 +8,13 @@ type HeaderPropType = {
   title?: string;
   titleClassName?: string;
   showUser?: boolean;
-  funcButton?: {
+  funcButtons?: {
     href: string;
     type: "cart" | "fav";
     variant?: "default" | "destructive" | "outline" | "light" | "transparent";
-  };
+    iconClassName?: string;
+    action?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  }[];
   className?: string;
   backButtonClassName?: string;
   backButtonAction?: () => void;
@@ -22,7 +24,7 @@ export default function Header({
   title,
   titleClassName,
   showUser = false,
-  funcButton,
+  funcButtons,
   className,
   backButtonClassName,
   backButtonAction,
@@ -32,8 +34,8 @@ export default function Header({
       className={cn(
         "w-full flex items-center justify-between py-4 px-5 fixed left-0 right-0 top-0 bg-white z-[1000]",
         {
-          "justify-center": !showUser && !funcButton,
-          "h-[72px]": !showUser || (!showUser && funcButton),
+          "justify-center": !showUser && !funcButtons,
+          "h-[72px]": !showUser || (!showUser && funcButtons),
         },
         className
       )}
@@ -56,12 +58,19 @@ export default function Header({
       >
         {title}
       </span>
-      {funcButton && (
-        <FuncButton
-          href={funcButton?.href}
-          type={funcButton?.type}
-          variant={funcButton?.variant}
-        />
+      {funcButtons && (
+        <div className="flex items-center gap-2">
+          {funcButtons.map((funcButton) => (
+            <FuncButton
+              key={funcButton.type}
+              href={funcButton?.href}
+              type={funcButton?.type}
+              variant={funcButton?.variant}
+              iconClassName={funcButton.iconClassName}
+              action={funcButton.action}
+            />
+          ))}
+        </div>
       )}
     </header>
   );

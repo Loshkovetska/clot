@@ -21,8 +21,10 @@ class ProductServiceClass {
     return response.data;
   }
 
-  async getProductBySlug(slug: string): Promise<ProductType> {
-    const response = await this.routeClient.get(`products/${slug}`);
+  async getProductBySlug(slug: string, userId?: string): Promise<ProductType> {
+    const response = await this.routeClient.get(`products/${slug}`, {
+      params: { param: userId },
+    });
 
     return response.data;
   }
