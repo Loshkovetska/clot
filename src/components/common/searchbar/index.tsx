@@ -1,22 +1,65 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 
-import { SearchIcon } from "@/components/icons";
+import { CloseIcon, SearchIcon } from "@/components/icons";
 import { Input } from "@/components/ui/input";
+import { ROUTES } from "@/lib/constants/routes";
+import { cn } from "@/lib/utils";
 
-export default function SearchBar() {
+type SearchBarPropType = {
+  className?: string;
+  formClassName?: string;
+  searchValue?: string;
+  navigateOnSubmit?: boolean;
+  setSearchValue?: Dispatch<SetStateAction<string>>;
+};
+
+export default function SearchBar({
+  formClassName,
+  className,
+  searchValue,
+  navigateOnSubmit = true,
+  setSearchValue,
+}: SearchBarPropType) {
+  const router = useRouter();
   const [value, setValue] = useState("");
-  // todo: add functionality
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  }, []);
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (setSearchValue) return setSearchValue?.(e.target.value);
+
+      setValue(e.target.value);
+    },
+    [setSearchValue]
+  );
+
+  const onSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      navigateOnSubmit && router.push(`${ROUTES.products}?q=${value}`);
+    },
+    [value, router, navigateOnSubmit]
+  );
+
   return (
-    <Input
-      value={value}
-      onChange={handleChange}
-      variant="rounded"
-      placeholder="Search"
-      iconLeft={<SearchIcon />}
-    />
+    <form
+      onSubmit={onSubmit}
+      className={cn("w-full", formClassName)}
+    >
+      <Input
+        value={value || searchValue}
+        variant="rounded"
+        placeholder="Search"
+        className={className}
+        iconLeft={<SearchIcon />}
+        iconRight={
+          (value || searchValue)?.length ? (
+            <CloseIcon onClick={() => (setSearchValue || setValue)?.("")} />
+          ) : undefined
+        }
+        onChange={handleChange}
+      />
+    </form>
   );
 }

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { initials } from "@/lib/utils/string";
 
-export default function UserAvatar({ className }: { className?: string }) {
+export default function UserAvatar(props: CustomIconType) {
   const { isLoaded, user } = useUser();
   return (
     <div

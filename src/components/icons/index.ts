@@ -1,6 +1,8 @@
 import { CheckIcon } from "@/components/icons/check";
 import { ChevronLeftIcon } from "@/components/icons/chevron";
+import { CloseIcon } from "@/components/icons/close";
 import { DiscountIcon } from "@/components/icons/discount";
+import { FilterIcon } from "@/components/icons/filter";
 import { HeartIcon } from "@/components/icons/heart";
 import { HomeIcon } from "@/components/icons/home";
 import { MinusIcon } from "@/components/icons/minus";
@@ -16,7 +18,9 @@ import { StarIcon } from "@/components/icons/star";
 export {
   CheckIcon,
   ChevronLeftIcon,
+  CloseIcon,
   DiscountIcon,
+  FilterIcon,
   HeartIcon,
   HomeIcon,
   MinusIcon,

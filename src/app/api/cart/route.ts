@@ -23,7 +23,10 @@ export async function GET(req: NextRequest) {
     }
 
     const response = {
-      cartItems: cart.data,
+      cartItems: cart.data.map((item) => {
+        delete item.user_id;
+        return item;
+      }),
       cartSummary: getCartSummary(cart.data),
     };
     return new NextResponse(JSON.stringify(response), { status: 200 });

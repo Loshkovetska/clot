@@ -1,4 +1,6 @@
 "use client";
+import { PropsWithChildren } from "react";
+
 import BackButton from "@/components/common/buttons/back-button";
 import FuncButton from "@/components/common/buttons/func-button";
 import UserAvatar from "@/components/common/user-avatar";
@@ -18,7 +20,7 @@ type HeaderPropType = {
   className?: string;
   backButtonClassName?: string;
   backButtonAction?: () => void;
-};
+} & PropsWithChildren;
 
 export default function Header({
   title,
@@ -27,6 +29,7 @@ export default function Header({
   funcButtons,
   className,
   backButtonClassName,
+  children,
   backButtonAction,
 }: HeaderPropType) {
   return (
@@ -47,17 +50,20 @@ export default function Header({
           action={backButtonAction}
         />
       )}
-      <span
-        className={cn(
-          "text-2xl",
-          {
-            "text-md font-bold": !showUser,
-          },
-          titleClassName
-        )}
-      >
-        {title}
-      </span>
+      {title && (
+        <span
+          className={cn(
+            "text-2xl",
+            {
+              "text-md font-bold": !showUser,
+            },
+            titleClassName
+          )}
+        >
+          {title}
+        </span>
+      )}
+      {children}
       {funcButtons && (
         <div className="flex items-center gap-2">
           {funcButtons.map((funcButton) => (

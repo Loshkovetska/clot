@@ -33,14 +33,14 @@ export const EMPTYLIST_DATA = {
   search: {
     title: "Sorry, we couldn't find any matching result for your Search.",
     imageUrl: SearchImage,
-    buttonTitle: "Return to Login",
-    buttonLink: ROUTES.signIn,
+    buttonTitle: "Return to Home",
+    buttonLink: ROUTES.home,
   },
 
   wishlist: {
     title: "Your Wishlist is Empty",
     imageUrl: SearchImage,
     buttonTitle: "Explore Categories",
-    buttonLink: ROUTES.signIn,
+    buttonLink: ROUTES.categories,
   },
 };

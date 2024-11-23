@@ -1,4 +1,6 @@
-export function PlusIcon({ className }: { className?: string }) {
+import { CustomIconType } from "@/types/custom-icon";
+
+export function PlusIcon(props: CustomIconType) {
   return (
     <svg
       width="12"
@@ -6,7 +8,7 @@ export function PlusIcon({ className }: { className?: string }) {
       viewBox="0 0 12 13"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      {...props}
     >
       <path
         d="M6 9.5V3.5M8 6.5H9M3 6.5H5.83"

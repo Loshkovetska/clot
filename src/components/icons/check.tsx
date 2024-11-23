@@ -1,4 +1,6 @@
-export function CheckIcon({ className }: { className?: string }) {
+import { CustomIconType } from "@/types/custom-icon";
+
+export function CheckIcon(props: CustomIconType) {
   return (
     <svg
       width="24"
@@ -6,7 +8,7 @@ export function CheckIcon({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      {...props}
     >
       <path
         d="M5 12.1515L8.81818 16.8182L19 6.63635"

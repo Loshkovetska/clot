@@ -1,4 +1,6 @@
-export function SearchIcon({ className }: { className?: string }) {
+import { CustomIconType } from "@/types/custom-icon";
+
+export function SearchIcon(props: CustomIconType) {
   return (
     <svg
       width="16"
@@ -6,7 +8,7 @@ export function SearchIcon({ className }: { className?: string }) {
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      {...props}
     >
       <g clipPath="url(#clip0_0_396)">
         <path

@@ -1,4 +1,6 @@
-export function NotificationIcon({ className }: { className?: string }) {
+import { CustomIconType } from "@/types/custom-icon";
+
+export function NotificationIcon(props: CustomIconType) {
   return (
     <svg
       width="25"
@@ -6,7 +8,7 @@ export function NotificationIcon({ className }: { className?: string }) {
       viewBox="0 0 25 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      {...props}
     >
       <path
         d="M12.6664 6.441V9.771M21.2564 15.17C21.9864 16.39 21.4064 17.97 20.0564 18.42C15.2752 20.01 10.1077 20.01 5.32644 18.42C3.88644 17.94 3.33644 16.48 4.12644 15.17L5.39644 13.05C5.74644 12.47 6.02644 11.44 6.02644 10.77V8.67C6.02512 7.79456 6.19642 6.92744 6.53053 6.11826C6.86463 5.30907 7.355 4.5737 7.97357 3.9542C8.59214 3.33471 9.32677 2.84324 10.1355 2.50792C10.9441 2.1726 11.811 2 12.6864 2C16.3464 2 19.3464 5 19.3464 8.66V10.76C19.3464 10.94 19.3664 11.14 19.3964 11.35"

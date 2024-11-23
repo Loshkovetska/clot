@@ -1,4 +1,6 @@
-export function HomeIcon({ className }: { className?: string }) {
+import { CustomIconType } from "@/types/custom-icon";
+
+export function HomeIcon(props: CustomIconType) {
   return (
     <svg
       width="24"
@@ -6,7 +8,7 @@ export function HomeIcon({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      {...props}
     >
       <path
         d="M22 10.498C22 9.28803 21.19 7.73803 20.2 7.04803L14.02 2.71803C12.62 1.73803 10.37 1.78803 9.02 2.83803L3.63 7.03803C2.73 7.73803 2 9.22803 2 10.358V17.768C2 20.088 3.89 21.988 6.21 21.988H17.79C20.11 21.988 22 20.088 22 17.778V14.678M12 17.988V14.988"

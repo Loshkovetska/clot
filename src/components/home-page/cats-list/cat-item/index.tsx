@@ -2,27 +2,35 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ROUTES } from "@/lib/constants/routes";
+import { cn } from "@/lib/utils";
+import { CategoryType } from "@/types/category";
 
-type CatItemPropType = {
-  title: string;
-  imageUrl?: string;
-  slug: string;
-};
-
-export default function CatItem({ title, imageUrl, slug }: CatItemPropType) {
+export default function CatItem({
+  title,
+  imageUrl,
+  slug,
+  variant,
+}: CategoryType & { variant?: "full" }) {
   return (
     <Link
-      className="flex flex-col items-center gap-1.5"
+      className={cn("flex flex-col items-center gap-1.5", {
+        "flex-row gap-4 p-3 bg-light-100 rounded-lg": variant === "full",
+      })}
       href={`${ROUTES.categories}/${slug}`}
     >
-      <div className="relative size-14 overflow-hidden rounded-full">
+      <div
+        className={cn(
+          "relative overflow-hidden rounded-full",
+          variant === "full" ? "size-10" : "size-14"
+        )}
+      >
         <Image
           src={`${process.env.NEXT_PUBLIC_SUPABASE_STORAGE}/${imageUrl ?? ""}`}
           alt="cat-item"
           fill
         />
       </div>
-      <h3 className="text-sm">{title}</h3>
+      <h3 className={variant === "full" ? "text-md" : "text-sm"}>{title}</h3>
     </Link>
   );
 }
