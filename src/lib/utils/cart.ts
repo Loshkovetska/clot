@@ -28,11 +28,13 @@ export const getCartSummary = (items?: CartItemType[]) => {
     return prevItem + currItem.product.shippingCost;
   }, 0);
 
-  const discount = items?.[0]?.discount || 0;
+  const discount = items.find((item) => item.discount)?.discount || 0;
 
   const oldPrice = subTotal + taxCost + shippingCost;
 
-  const totalPrice = oldPrice - getProductPrice(oldPrice, discount);
+  const totalPrice = discount
+    ? oldPrice - getProductPrice(oldPrice, discount)
+    : oldPrice;
 
   return {
     subTotal,

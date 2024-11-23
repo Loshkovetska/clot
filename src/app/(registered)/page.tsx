@@ -11,7 +11,7 @@ export default async function Home() {
     <>
       <Header
         showUser
-        funcButton={{ type: "cart", href: ROUTES.cart }}
+        funcButtons={[{ type: "cart", href: ROUTES.cart }]}
         title="Clot"
       />
 
