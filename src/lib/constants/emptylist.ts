@@ -36,4 +36,11 @@ export const EMPTYLIST_DATA = {
     buttonTitle: "Return to Login",
     buttonLink: ROUTES.signIn,
   },
+
+  wishlist: {
+    title: "Your Wishlist is Empty",
+    imageUrl: SearchImage,
+    buttonTitle: "Explore Categories",
+    buttonLink: ROUTES.signIn,
+  },
 };
