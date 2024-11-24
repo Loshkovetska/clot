@@ -20,13 +20,13 @@ export default async function Home() {
         <CatsList />
         <ProductsList
           title="Top Selling"
-          href={`${ROUTES.products}?top_selling`}
+          href={`${ROUTES.products}?ort-by=top-selling`}
           queryKey={QUERY_KEYS.TOP_PRODUCTS}
           params={{ top_selling: true }}
         />
         <ProductsList
           title="New In"
-          href={`${ROUTES.products}?new`}
+          href={`${ROUTES.products}?sort-by=new`}
           queryKey={QUERY_KEYS.NEW_PRODUCTS}
           params={{ new: true }}
         />

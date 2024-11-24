@@ -13,7 +13,9 @@ type EmptyListPropType = {
 export default function EmptyList({ type, className }: EmptyListPropType) {
   const data = EMPTYLIST_DATA[type];
   return (
-    <div className={cn("flex w-full flex-col items-center gap-6", className)}>
+    <div
+      className={cn("flex w-full flex-col items-center gap-6 pt-20", className)}
+    >
       <Image
         width={100}
         height={100}

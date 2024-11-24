@@ -15,15 +15,16 @@ export default function ProductPrice({
   priceClassName,
   mainPriceClassName,
 }: ProductPricePropType) {
-  const newPrice = useMemo(() => price * (discount / 100), [price, discount]);
+  const priceDiff = useMemo(() => price * (discount / 100), [price, discount]);
+  const newPrice = useMemo(() => price - priceDiff, [priceDiff, price]);
   return (
     <div className="flex items-center gap-2">
       <span
         className={cn("text-md font-bold", priceClassName, mainPriceClassName)}
       >
-        ${(newPrice || price).toFixed(2)}
+        ${(priceDiff ? newPrice : price).toFixed(2)}
       </span>
-      {newPrice > 0 && (
+      {priceDiff > 0 && (
         <span
           className={cn(
             "text-md line-through font-medium text-black-50",

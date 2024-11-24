@@ -11,22 +11,13 @@ import { useSearch } from "@/lib/hooks/useSearch";
 import { onFilterChange } from "@/lib/utils/filter";
 import { FilterType, FilterValuesType } from "@/types/filter";
 
-type SearchContentPropType = {
-  type: "category" | "products";
-  slug?: string;
-};
-
-export default function SearchContent({ type, slug }: SearchContentPropType) {
+export default function SearchContent({ slug }: { slug?: string }) {
   const [filters, setFilters] = useState<FilterType>({});
 
-  const { productsList, currentPage, isFetching, fetchNextPage, hasNextPage } =
-    useSearch({
-      type,
-      slug,
-      filters,
-    });
-
-  console.log(productsList, currentPage, hasNextPage, currentPage?.hasNextPage);
+  const { productsList, currentPage, isFetching, fetchNextPage } = useSearch({
+    slug,
+    filters,
+  });
 
   const handleFilterChange = useCallback(
     (key: keyof FilterType, value: FilterValuesType) => {
@@ -61,7 +52,7 @@ export default function SearchContent({ type, slug }: SearchContentPropType) {
           <Button
             onClick={() => fetchNextPage()}
             size="lg"
-            className="rounded-[100px]"
+            className="mx-auto mt-4 w-full max-w-[240px] rounded-[100px]"
           >
             Load More
           </Button>

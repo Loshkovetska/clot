@@ -36,10 +36,21 @@ export default function FilterItem({
     },
     []
   );
+
+  const handleConfirm = useCallback(() => {
+    if (
+      JSON.stringify(chosenFilters["price"]) === JSON.stringify(priceValues)
+    ) {
+      setValues({ min: 0, max: 0 });
+    }
+    handleValueChange(filterKey, priceValues);
+    setOpen(false);
+  }, [priceValues, chosenFilters, filterKey, handleValueChange]);
+
   return (
     <MobileDialog
-      open={filterKey ? dialogOpen : undefined}
-      onOpenChange={filterKey ? setOpen : undefined}
+      open={dialogOpen}
+      onOpenChange={setOpen}
       title={title}
       trigger={
         <Button
@@ -60,10 +71,8 @@ export default function FilterItem({
         filterKey === "price" ? (
           <Button
             size="lg"
-            onClick={() => {
-              handleValueChange(filterKey, priceValues);
-              setOpen(false);
-            }}
+            disabled={!priceValues?.min && !priceValues?.max}
+            onClick={handleConfirm}
           >
             Confirm
           </Button>
@@ -78,7 +87,10 @@ export default function FilterItem({
             size="lg"
             className="w-full justify-between"
             key={filter.id}
-            onClick={() => handleValueChange(filterKey, filter.key as any)}
+            onClick={() => {
+              handleValueChange(filterKey, filter.key as any);
+              setOpen(false);
+            }}
           >
             {filter.title}
             <CheckIcon className={isSelected ? "opacity-1" : "opacity-0"} />

@@ -12,7 +12,7 @@ export default function Filters({
   handleValueChange,
   resetFilters,
 }: FiltersPropType) {
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const queryCheck = useMediaQuery("(min-width: 1024px)");
   const filtersCount = useMemo(
     () =>
       Object.keys(chosenFilters).length
@@ -20,6 +20,8 @@ export default function Filters({
         : null,
     [chosenFilters]
   );
+
+  const isDesktop = typeof window !== "undefined" ? queryCheck : true;
   return (
     <div className="flex w-full items-center gap-1">
       <Button

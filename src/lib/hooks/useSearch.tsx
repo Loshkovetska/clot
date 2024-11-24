@@ -7,17 +7,18 @@ import SearchService from "@/services/search.service";
 import { FilterType } from "@/types/filter";
 
 type useSearchParams = {
-  type: "category" | "products";
   slug?: string;
   filters: FilterType;
 };
 
-export const useSearch = ({ type, slug, filters }: useSearchParams) => {
+export const useSearch = ({ slug, filters }: useSearchParams) => {
   const searchParams = useSearchParams();
 
   const filtersParams = useMemo(
     () => ({
-      "sort-by": filters["sort-by"],
+      "sort-by":
+        filters["sort-by"] ||
+        (searchParams.get("sort-by") as FilterType["sort-by"]),
       gender: filters.gender,
       deals: filters.deals,
       price_min: filters.price?.min,
@@ -35,7 +36,6 @@ export const useSearch = ({ type, slug, filters }: useSearchParams) => {
 
   const {
     data,
-    hasNextPage,
     isLoading,
     isFetching,
     isFetchingNextPage,
@@ -56,11 +56,11 @@ export const useSearch = ({ type, slug, filters }: useSearchParams) => {
         page: pageParam,
         ...filtersParams,
       }),
-    getNextPageParam: (lastPage, allPages) =>
+    getNextPageParam: (lastPage) =>
       lastPage.page + 1 < lastPage.totalPages
         ? lastPage.page + 1
         : lastPage.totalPages,
-    getPreviousPageParam: (firstPage, allPages) => firstPage.page - 1,
+    getPreviousPageParam: (firstPage) => firstPage.page - 1,
     enabled: false,
   });
 
@@ -68,7 +68,10 @@ export const useSearch = ({ type, slug, filters }: useSearchParams) => {
     refetch();
   }, [filtersString, refetch]);
 
-  const currentPage = useMemo(() => data?.pages?.[0], [data]);
+  const currentPage = useMemo(
+    () => data?.pages?.[data?.pages.length - 1],
+    [data]
+  );
 
   const productsList = useMemo(
     () => data?.pages.flatMap((dt) => dt.products),
@@ -79,8 +82,7 @@ export const useSearch = ({ type, slug, filters }: useSearchParams) => {
     productsList,
     currentPage,
     isFetchingNextPage,
-    isFetching,
-    hasNextPage,
+    isFetching: isFetching || isLoading,
     fetchNextPage,
   };
 };

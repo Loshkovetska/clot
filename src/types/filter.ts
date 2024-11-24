@@ -1,7 +1,7 @@
 import { FILTERS } from "@/lib/constants/filters";
 
 type FilterType = {
-  "sort-by"?: "price-asc" | "price-desc" | "high-rated" | "new";
+  "sort-by"?: "price-asc" | "price-desc" | "high-rated" | "new" | "top-selling";
   gender?: "kids" | "male" | "female";
   deals?: "sale" | "free-shipping";
   price?: { min?: number; max?: number };

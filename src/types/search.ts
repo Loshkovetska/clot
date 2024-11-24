@@ -10,6 +10,7 @@ type SearchParams = {
   price_max?: number;
   "sort-by"?: FilterType["sort-by"];
   q?: string;
+  top_selling?: boolean;
 };
 
 type SearchResultType = {
