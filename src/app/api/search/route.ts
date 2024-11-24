@@ -87,8 +87,6 @@ export async function GET(req: NextRequest) {
 
     const response = await request;
 
-    console.log(response);
-
     if (response.error) {
       throw new Error("Can't get products by provided filters");
     }

@@ -1,6 +1,12 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import { CloseIcon, SearchIcon } from "@/components/icons";
 import { Input } from "@/components/ui/input";
@@ -22,6 +28,7 @@ export default function SearchBar({
   navigateOnSubmit = true,
   setSearchValue,
 }: SearchBarPropType) {
+  const searchParams = useSearchParams();
   const router = useRouter();
   const [value, setValue] = useState("");
 
@@ -41,6 +48,14 @@ export default function SearchBar({
     },
     [value, router, navigateOnSubmit]
   );
+
+  useEffect(() => {
+    if (searchParams.get("q")) {
+      setTimeout(() => {
+        setValue(searchParams?.get("q") || "");
+      }, 1000);
+    }
+  }, [searchParams]);
 
   return (
     <form
