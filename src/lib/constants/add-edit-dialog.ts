@@ -1,5 +1,5 @@
 const CARD_FIELDS = {
-  cardnumber: "",
+  card_number: "",
   cardholder_name: "",
   expired_date: "",
   ccv: "",
