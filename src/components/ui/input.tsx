@@ -16,10 +16,14 @@ const inputVariants = cva(
         default: "h-10 px-4 py-2",
         lg: "h-14 px-4 py-3",
       },
+      disabled: {
+        true: "pointer-events-none opacity-50",
+      },
     },
     defaultVariants: {
       variant: "default",
       sizeB: "default",
+      disabled: false,
     },
   }
 );
@@ -46,7 +50,11 @@ const Input = React.forwardRef<HTMLInputElement, InputPropType>(
     ref
   ) => {
     return (
-      <div className={cn(inputVariants({ variant, sizeB, className }))}>
+      <div
+        className={cn(
+          inputVariants({ variant, sizeB, disabled: props.disabled, className })
+        )}
+      >
         {iconLeft}
         <input
           type={type}

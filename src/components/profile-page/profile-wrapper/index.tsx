@@ -9,7 +9,7 @@ export default function ProfileWrapper({
   return (
     <>
       <Header title={title} />
-      <div className="flex w-full grow flex-col pt-4">{children}</div>
+      <div className="flex w-full grow flex-col gap-4 pt-4">{children}</div>
     </>
   );
 }

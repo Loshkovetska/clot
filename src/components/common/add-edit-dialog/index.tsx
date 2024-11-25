@@ -1,6 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReactNode, useCallback, useEffect, useMemo } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import AddressForm from "@/components/common/forms/address-form";
 import PaymentCardForm from "@/components/common/forms/payment-card-form";
@@ -8,13 +10,25 @@ import ProfileInfoForm from "@/components/common/forms/profile-info-form";
 import ScreenDialog from "@/components/common/screen-dialog";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { useAddress } from "@/lib/hooks/useAddress";
+import { usePaymentCard } from "@/lib/hooks/usePaymentCard";
 import { generateAEConstants } from "@/lib/utils/add-edit";
+import { UpdateUserParams } from "@/lib/utils/user";
+import UserService from "@/services/user.service";
+import {
+  AddressFormType,
+  CardFormType,
+  MainInfoFormType,
+} from "@/types/add-edit-dialog";
 
 type AddEditDialogPropType = {
   type: "address" | "profile" | "card";
   action?: "add" | "edit";
-  trigger: ReactNode;
+  trigger?: ReactNode;
   defaultValues?: any;
+  open?: boolean;
+  onOpenChange?: () => void;
+  onSuccess?: () => void;
 };
 
 export default function AddEditDialog({
@@ -22,7 +36,12 @@ export default function AddEditDialog({
   action = "edit",
   trigger,
   defaultValues,
+  open,
+  onOpenChange,
+  onSuccess,
 }: AddEditDialogPropType) {
+  const [isOpen, setOpen] = useState(false);
+
   const { defaultFields, scheme, TITLE } = useMemo(
     () => generateAEConstants(type, action),
     [type, action]
@@ -36,21 +55,106 @@ export default function AddEditDialog({
     mode: "onChange",
   });
 
-  const onSubmit = useCallback((values: any) => {}, []);
+  const { formState } = form;
+
+  const { addCard, updateCard, addCardPending, updateCardPending } =
+    usePaymentCard({
+      enabled: false,
+      onAddSuccess: handleClose,
+      onUpdateSuccess: handleClose,
+    });
+
+  const { updateAddress, addAddress, addAddressPending, updateAddressPending } =
+    useAddress({
+      enabled: false,
+      onAddSuccess: handleClose,
+      onUpdateSuccess: handleClose,
+    });
+
+  const { mutate: updateUser, isPending: isUserPending } = useMutation({
+    mutationFn: (params: UpdateUserParams) => UserService.updateUser(params),
+    onSuccess: () => {
+      toast.success("Profile was successfully updated!");
+      onSuccess?.();
+      handleClose();
+    },
+    onError: () => toast.error("Something went wrong!"),
+  });
+
+  const onSubmit = useCallback(
+    (values: any) => {
+      if (type === "profile") {
+        updateUser(values);
+      }
+
+      if (type === "card") {
+        const [month, year] = values["expired_date"].split("/");
+        const today = new Date();
+        const expiredDate = new Date(Number("20" + year), Number(month) - 1, 1);
+
+        if (expiredDate.getTime() < today.getTime()) {
+          form.setError("expired_date", {
+            message: "Invalid Expired date",
+          });
+          return;
+        }
+        form.clearErrors("expired_date");
+        (action === "add" ? addCard : updateCard)({
+          ...defaultValues,
+          ...values,
+        });
+      }
+
+      if (type === "address") {
+        (action === "add" ? addAddress : updateAddress)({
+          ...defaultValues,
+          ...values,
+        });
+      }
+    },
+    [
+      type,
+      action,
+      form,
+      defaultValues,
+      updateUser,
+      addCard,
+      updateCard,
+      addAddress,
+      updateAddress,
+    ]
+  );
+
+  function handleClose() {
+    onOpenChange?.();
+    setOpen(false);
+    form.reset(defaultFields);
+  }
 
   useEffect(() => {
-    defaultValues && form.reset(defaultValues);
-  }, [form, defaultValues]);
+    (open || isOpen) && form.reset(defaultValues || {});
+  }, [open, isOpen, defaultValues, form]);
 
   return (
     <ScreenDialog
+      open={open || isOpen}
+      onOpenChange={handleClose}
       trigger={trigger}
       title={TITLE}
       buttonsBlock={
         <Button
           className="w-full"
           size="lg"
-          disabled={!form.formState.isValid}
+          disabled={
+            !formState.isValid ||
+            !formState.isDirty ||
+            isUserPending ||
+            addCardPending ||
+            updateCardPending ||
+            addAddressPending ||
+            updateAddressPending
+          }
+          loading={isUserPending}
           onClick={form.handleSubmit(onSubmit)}
         >
           {action === "add" ? "Confirm" : "Save"}
@@ -58,10 +162,12 @@ export default function AddEditDialog({
       }
     >
       <Form {...form}>
-        <div className="flex w-full flex-col gap-3">
-          {type === "profile" && <ProfileInfoForm form={form} />}
-          {type === "address" && <AddressForm form={form} />}
-          {type === "card" && <PaymentCardForm form={form} />}
+        <div className="mx-auto flex w-full max-w-[550px] flex-col gap-6">
+          {type === "profile" && (
+            <ProfileInfoForm form={form as MainInfoFormType} />
+          )}
+          {type === "address" && <AddressForm form={form as AddressFormType} />}
+          {type === "card" && <PaymentCardForm form={form as CardFormType} />}
         </div>
       </Form>
     </ScreenDialog>

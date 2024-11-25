@@ -1,85 +1,36 @@
-import { UseFormReturn } from "react-hook-form";
+import { FormElement } from "@/components/ui/form";
+import { AddEditDialogFormType } from "@/types/add-edit-dialog";
 
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-
-export default function PaymentCardForm({
-  form,
-}: {
-  form: UseFormReturn<any>;
-}) {
+export default function PaymentCardForm({ form }: AddEditDialogFormType) {
   return (
     <>
-      <FormField
-        control={form.control}
+      <FormElement
+        form={form}
         name="card_number"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <Input
-                {...field}
-                placeholder="Card Number"
-                sizeB="lg"
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
+        placeholder="Card Number"
+        type="number"
       />
       <div className="flex w-full items-center gap-5">
-        <FormField
-          control={form.control}
+        <FormElement
+          form={form}
           name="ccv"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  {...field}
-                  placeholder="CCV"
-                  sizeB="lg"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="CCV"
+          type="number"
+          itemClassName="grow"
         />
-        <FormField
-          control={form.control}
+        <FormElement
+          form={form}
           name="expired_date"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  {...field}
-                  placeholder="Exp"
-                  sizeB="lg"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Exp"
+          type="number"
+          itemClassName="grow"
         />
       </div>
-      <FormField
-        control={form.control}
+      <FormElement
+        form={form}
         name="cardholder_name"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <Input
-                {...field}
-                placeholder="Cardholder Name"
-                sizeB="lg"
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
+        placeholder="Cardholder Name"
+        type="string"
       />
     </>
   );

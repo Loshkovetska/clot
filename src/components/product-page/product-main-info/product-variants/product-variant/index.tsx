@@ -120,7 +120,7 @@ export default function ProductVariant({
             {triggerContent(combination, false, isSelected(combination))}
           </div>
           <CheckIcon
-            className={isSelected(combination) ? "opacity-1" : "opacity-0"}
+            className={isSelected(combination) ? "opacity-100" : "opacity-0"}
           />
         </Button>
       ))}

@@ -13,17 +13,17 @@ const profileInfoScheme = z.object({
 });
 
 const addressScheme = z.object({
-  street: z.string().min(5),
-  city: z.string().min(2),
-  state: z.string().min(2),
+  street: z.string().min(5, "Invalid street"),
+  city: z.string().min(2, "Invalid city"),
+  state: z.string().min(2, "Invalid state"),
   post_code: z.string().optional(),
 });
 
 const cardScheme = z.object({
-  card_number: z.string().min(12).max(19),
-  cardholder_name: z.string().min(2),
-  ccv: z.string().min(3).max(4),
-  expired_date: z.string(),
+  card_number: z.string().min(18, "Invalid card number"),
+  cardholder_name: z.string().min(2, "Invalid Card holder name"),
+  ccv: z.string().min(3, "Invalid CCV"),
+  expired_date: z.string().min(5, "Invalid Expired date"),
 });
 
 export { addReviewScheme, addressScheme, cardScheme, profileInfoScheme };

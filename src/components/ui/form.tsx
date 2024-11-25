@@ -9,11 +9,21 @@ import {
   FieldPath,
   FieldValues,
   FormProvider,
+  RegisterOptions,
+  UseFormReturn,
   useFormContext,
 } from "react-hook-form";
 
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import {
+  formateCCV,
+  formateCardNumber,
+  formateExpiredDate,
+  formatePhoneNumber,
+  handleInputValue,
+} from "@/lib/utils/string";
 
 const Form = FormProvider;
 
@@ -82,7 +92,7 @@ const FormItem = React.forwardRef<
     <FormItemContext.Provider value={{ id }}>
       <div
         ref={ref}
-        className={cn("space-y-2", className)}
+        className={cn("space-y-2 relative", className)}
         {...props}
       />
     </FormItemContext.Provider>
@@ -162,7 +172,10 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn("text-sm font-medium text-destructive", className)}
+      className={cn(
+        "text-sm font-medium text-destructive absolute !mt-0",
+        className
+      )}
       {...props}
     >
       {body}
@@ -171,10 +184,88 @@ const FormMessage = React.forwardRef<
 });
 FormMessage.displayName = "FormMessage";
 
+type FormElementPropType = {
+  form: UseFormReturn<any>;
+  name: string;
+  placeholder: string;
+  rules?:
+    | Omit<
+        RegisterOptions<any, string>,
+        "disabled" | "valueAsNumber" | "valueAsDate" | "setValueAs"
+      >
+    | undefined;
+
+  type?: "number" | "string";
+  itemClassName?: string;
+  disabled?: boolean;
+};
+
+const FormElement = ({
+  form,
+  name,
+  placeholder,
+  rules,
+  type,
+  itemClassName,
+  disabled,
+}: FormElementPropType) => {
+  const formateInputValue = React.useCallback(
+    (value: string) => {
+      if (name === "card_number") return formateCardNumber(value || "");
+      if (name === "ccv") return formateCCV(value);
+      if (name === "expired_date") return formateExpiredDate(value);
+      if (name === "phonenumber") return formatePhoneNumber(value);
+
+      return value;
+    },
+    [name]
+  );
+
+  const handleValueChange = React.useCallback(
+    (onChange: (value: string) => void, value: string) => {
+      if (!type) return onChange(value);
+
+      const isValid = handleInputValue(value, type);
+      isValid && onChange(value.replaceAll(/[.,]/g, ""));
+    },
+    [type]
+  );
+
+  return (
+    <FormField
+      control={form.control}
+      name={name}
+      rules={rules}
+      render={({ field, fieldState }) => (
+        <FormItem className={itemClassName}>
+          <FormControl>
+            <Input
+              {...field}
+              placeholder={placeholder}
+              sizeB="lg"
+              variant={fieldState.invalid ? "destructive" : "default"}
+              disabled={disabled}
+              value={formateInputValue(field.value || "")}
+              onChange={(e) =>
+                handleValueChange(field.onChange, e.target.value)
+              }
+              onPaste={(e) =>
+                handleValueChange(field.onChange, e.currentTarget.value)
+              }
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
 export {
   Form,
   FormControl,
   FormDescription,
+  FormElement,
   FormField,
   FormItem,
   FormLabel,

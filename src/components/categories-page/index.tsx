@@ -49,12 +49,7 @@ export default function CategoriesMenuContent({
           </div>
         </div>
       )}
-      {!categories.length && (
-        <EmptyList
-          type="search"
-          className="grow justify-center"
-        />
-      )}
+      {!categories.length && <EmptyList type="search" />}
     </>
   );
 }

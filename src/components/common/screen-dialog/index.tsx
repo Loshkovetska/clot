@@ -1,12 +1,21 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren, useCallback, useState } from "react";
 
 import Header from "@/components/common/header";
-import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 type ScreenDialogPropType = {
   trigger: React.ReactNode;
   title: string;
   buttonsBlock: React.ReactNode[] | React.ReactNode;
+  open?: boolean;
+  onOpenChange?: () => void;
 } & PropsWithChildren;
 
 export default function ScreenDialog({
@@ -14,30 +23,38 @@ export default function ScreenDialog({
   title,
   children,
   buttonsBlock,
+  open,
+  onOpenChange,
 }: ScreenDialogPropType) {
   const [isOpen, setOpen] = useState(false);
+
+  const handleDialogState = useCallback(
+    (flag: boolean) => {
+      onOpenChange?.();
+      setOpen(flag);
+    },
+    [onOpenChange]
+  );
+
   return (
-    <>
-      <div
-        className={cn(
-          "fixed inset-0 z-[10000000] flex h-auto flex-col bg-white transition-all",
-          { "invisible opacity-0": !isOpen }
-        )}
-      >
-        <Header
-          title={title}
-          titleClassName="text-md font-bold"
-          className="relative"
-          backButtonAction={() => setOpen(false)}
-        />
+    <Dialog
+      open={isOpen || open}
+      onOpenChange={handleDialogState}
+    >
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle></DialogTitle>
+          <Header
+            title={title}
+            titleClassName="text-md font-bold"
+            className="relative"
+            backButtonAction={() => handleDialogState(false)}
+          />
+        </DialogHeader>
         <div className="px-6">{children}</div>
-        <div className="fixed bottom-0 left-0 w-full border-t border-light-100 bg-white px-4 py-3">
-          {buttonsBlock}
-        </div>
-      </div>
-      {React.cloneElement(trigger as React.ReactElement, {
-        onClick: setOpen,
-      })}
-    </>
+        <DialogFooter>{buttonsBlock}</DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

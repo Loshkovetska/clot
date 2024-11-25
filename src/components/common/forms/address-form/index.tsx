@@ -1,80 +1,33 @@
-import { UseFormReturn } from "react-hook-form";
+import { FormElement } from "@/components/ui/form";
+import { AddEditDialogFormType } from "@/types/add-edit-dialog";
 
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-
-export default function AddressForm({ form }: { form: UseFormReturn<any> }) {
+export default function AddressForm({ form }: AddEditDialogFormType) {
   return (
     <>
-      <FormField
-        control={form.control}
+      <FormElement
+        form={form}
         name="street"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <Input
-                {...field}
-                placeholder="Street Address"
-                sizeB="lg"
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
+        placeholder="Street Address"
       />
-      <FormField
-        control={form.control}
+      <FormElement
+        form={form}
         name="city"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <Input
-                {...field}
-                placeholder="City"
-                sizeB="lg"
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
+        placeholder="City"
+        type="string"
       />
       <div className="flex w-full items-center gap-5">
-        <FormField
-          control={form.control}
+        <FormElement
+          form={form}
           name="state"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  {...field}
-                  placeholder="State"
-                  sizeB="lg"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="State"
+          itemClassName="grow"
+          type="string"
         />
-        <FormField
-          control={form.control}
+        <FormElement
+          form={form}
           name="post_code"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  {...field}
-                  placeholder="Zip Code"
-                  sizeB="lg"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Zip Code"
+          itemClassName="grow"
         />
       </div>
     </>

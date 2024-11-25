@@ -93,7 +93,7 @@ export default function FilterItem({
             }}
           >
             {filter.title}
-            <CheckIcon className={isSelected ? "opacity-1" : "opacity-0"} />
+            <CheckIcon className={isSelected ? "opacity-100" : "opacity-0"} />
           </Button>
         );
       })}

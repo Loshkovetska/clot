@@ -12,12 +12,7 @@ export default function CartContent() {
   const { cartSummary, cartItems, isLoading } = useCart({});
 
   if (!isLoading && !cartItems.length) {
-    return (
-      <EmptyList
-        type="cart"
-        className="grow justify-center"
-      />
-    );
+    return <EmptyList type="cart" />;
   }
 
   return (

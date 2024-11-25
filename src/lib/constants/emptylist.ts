@@ -36,11 +36,22 @@ export const EMPTYLIST_DATA = {
     buttonTitle: "Return to Home",
     buttonLink: ROUTES.home,
   },
-
   wishlist: {
     title: "Your Wishlist is Empty",
     imageUrl: SearchImage,
     buttonTitle: "Explore Categories",
     buttonLink: ROUTES.categories,
+  },
+  address: {
+    title: "No addresses were found",
+    imageUrl: SearchImage,
+    buttonTitle: "Add New Address",
+    buttonLink: "",
+  },
+  card: {
+    title: "No cards were found",
+    imageUrl: SearchImage,
+    buttonTitle: "Add New Card",
+    buttonLink: "",
   },
 };

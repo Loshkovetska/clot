@@ -7,4 +7,6 @@ export const QUERY_KEYS = {
   CART: "CART",
   WISHLIST: "WISHLIST",
   SEARCH: "SEARCH",
+  ADDRESSES: "ADDRESSES",
+  CARDS: "CARDS",
 };

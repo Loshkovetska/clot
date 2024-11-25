@@ -14,10 +14,7 @@ export default function ProductsResult({
   type,
 }: ProductsResultPropType) {
   return !isLoading && !data?.length ? (
-    <EmptyList
-      type={type}
-      className="grow justify-center"
-    />
+    <EmptyList type={type} />
   ) : (
     <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-6">
       {data?.map((item) => (

@@ -77,6 +77,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
         full: "1000000px",
       },
+      zIndex: {
+        full: "1000000000",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
