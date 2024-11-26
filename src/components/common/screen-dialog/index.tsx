@@ -15,7 +15,7 @@ type ScreenDialogPropType = {
   title: string;
   buttonsBlock: React.ReactNode[] | React.ReactNode;
   open?: boolean;
-  onOpenChange?: () => void;
+  onOpenChange?: (flag: boolean) => void;
 } & PropsWithChildren;
 
 export default function ScreenDialog({
@@ -30,7 +30,7 @@ export default function ScreenDialog({
 
   const handleDialogState = useCallback(
     (flag: boolean) => {
-      onOpenChange?.();
+      onOpenChange?.(flag);
       setOpen(flag);
     },
     [onOpenChange]
@@ -38,7 +38,7 @@ export default function ScreenDialog({
 
   return (
     <Dialog
-      open={isOpen || open}
+      open={onOpenChange ? open : isOpen}
       onOpenChange={handleDialogState}
     >
       <DialogTrigger asChild>{trigger}</DialogTrigger>

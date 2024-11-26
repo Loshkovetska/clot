@@ -53,6 +53,7 @@ export default function AddEditDialog({
     },
     resolver: zodResolver(scheme),
     mode: "onChange",
+    reValidateMode: "onChange",
   });
 
   const { formState } = form;
@@ -60,15 +61,15 @@ export default function AddEditDialog({
   const { addCard, updateCard, addCardPending, updateCardPending } =
     usePaymentCard({
       enabled: false,
-      onAddSuccess: handleClose,
-      onUpdateSuccess: handleClose,
+      onAddSuccess: () => handleDialogState(false),
+      onUpdateSuccess: () => handleDialogState(false),
     });
 
   const { updateAddress, addAddress, addAddressPending, updateAddressPending } =
     useAddress({
       enabled: false,
-      onAddSuccess: handleClose,
-      onUpdateSuccess: handleClose,
+      onAddSuccess: () => handleDialogState(false),
+      onUpdateSuccess: () => handleDialogState(false),
     });
 
   const { mutate: updateUser, isPending: isUserPending } = useMutation({
@@ -76,7 +77,7 @@ export default function AddEditDialog({
     onSuccess: () => {
       toast.success("Profile was successfully updated!");
       onSuccess?.();
-      handleClose();
+      handleDialogState(false);
     },
     onError: () => toast.error("Something went wrong!"),
   });
@@ -125,10 +126,26 @@ export default function AddEditDialog({
     ]
   );
 
-  function handleClose() {
-    onOpenChange?.();
-    setOpen(false);
-    form.reset(defaultFields);
+  const isLoading = useMemo(
+    () =>
+      isUserPending ||
+      addCardPending ||
+      updateCardPending ||
+      addAddressPending ||
+      updateAddressPending,
+    [
+      isUserPending,
+      addCardPending,
+      updateCardPending,
+      addAddressPending,
+      updateAddressPending,
+    ]
+  );
+
+  function handleDialogState(flag: boolean) {
+    !flag && onOpenChange?.();
+    setOpen(flag);
+    !flag && form.reset(defaultFields);
   }
 
   useEffect(() => {
@@ -138,23 +155,15 @@ export default function AddEditDialog({
   return (
     <ScreenDialog
       open={open || isOpen}
-      onOpenChange={handleClose}
+      onOpenChange={handleDialogState}
       trigger={trigger}
       title={TITLE}
       buttonsBlock={
         <Button
           className="w-full"
           size="lg"
-          disabled={
-            !formState.isValid ||
-            !formState.isDirty ||
-            isUserPending ||
-            addCardPending ||
-            updateCardPending ||
-            addAddressPending ||
-            updateAddressPending
-          }
-          loading={isUserPending}
+          disabled={!formState.isValid || !formState.isDirty || isLoading}
+          loading={isLoading}
           onClick={form.handleSubmit(onSubmit)}
         >
           {action === "add" ? "Confirm" : "Save"}
