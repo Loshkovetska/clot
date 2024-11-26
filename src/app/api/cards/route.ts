@@ -74,7 +74,7 @@ export async function PUT(req: NextRequest) {
       .from("cards")
       .update({
         ...copy,
-        card_number: copy.card_number.replaceAll("-", ""),
+        card_number: copy.card_number?.replaceAll("-", "") || undefined,
       })
       .eq("id", params.id)
       .select()
@@ -111,7 +111,13 @@ export async function DELETE(req: NextRequest) {
       throw new Error("Can't delete the card");
     }
 
-    await supabase.from("cards").update({ is_primary: true }).range(0, 1);
+    const res = await supabase.from("cards").select().maybeSingle();
+    if (res.data) {
+      await supabase
+        .from("cards")
+        .update({ is_primary: true })
+        .eq("id", res.data.id);
+    }
 
     return new NextResponse(JSON.stringify("OK"), { status: 200 });
   } catch (e) {

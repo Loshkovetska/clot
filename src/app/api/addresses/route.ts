@@ -72,7 +72,9 @@ export async function PUT(req: NextRequest) {
     const result = await supabase
       .from("addresses")
       .update(copy)
-      .eq("id", params.id);
+      .eq("id", params.id)
+      .select()
+      .single();
 
     if (result.error) {
       throw new Error("Can't update the address");
@@ -82,7 +84,7 @@ export async function PUT(req: NextRequest) {
       await supabase
         .from("addresses")
         .update({ is_primary: false })
-        .neq("id", params.id);
+        .neq("id", result.data.id);
     }
 
     return new NextResponse(JSON.stringify(result.data), { status: 200 });
@@ -108,8 +110,14 @@ export async function DELETE(req: NextRequest) {
       throw new Error("Can't delete the address");
     }
 
-    await supabase.from("addresses").update({ is_primary: true }).range(0, 1);
+    const res = await supabase.from("addresses").select().maybeSingle();
 
+    if (res.data) {
+      await supabase
+        .from("addresses")
+        .update({ is_primary: true })
+        .eq("id", res.data.id);
+    }
     return new NextResponse(JSON.stringify("OK"), { status: 200 });
   } catch (e) {
     return new NextResponse(JSON.stringify(e), { status: 500 });

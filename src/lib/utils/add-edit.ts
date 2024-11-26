@@ -49,10 +49,12 @@ export const setQueryData = (
     queryClient.setQueryData(
       [queryKey],
       (oldData: Array<PaymentCardType | AddressType>) => [
-        ...oldData.map((item: PaymentCardType | AddressType) => ({
-          ...item,
-          is_primary: false,
-        })),
+        ...oldData
+          .filter((dt) => dt.id !== data?.id)
+          .map((item: PaymentCardType | AddressType) => ({
+            ...item,
+            is_primary: false,
+          })),
         data,
       ]
     );
@@ -62,11 +64,11 @@ export const setQueryData = (
     queryClient.setQueryData(
       [queryKey],
       (oldData: Array<PaymentCardType | AddressType>) =>
-        oldData.map((card) => {
-          if (card.id === (vars as PaymentCardType | AddressType).id)
+        oldData.map((item) => {
+          if (item.id === (vars as PaymentCardType | AddressType).id)
             return data;
           return {
-            ...card,
+            ...item,
             is_primary: !(vars as PaymentCardType | AddressType).is_primary,
           };
         })
