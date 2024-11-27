@@ -17,7 +17,12 @@ export default function OrdersContent() {
     filter as "Processing"
   );
 
-  if (!isFetching && !ordersList?.length) return <EmptyList type="orders" />;
+  if (
+    !isFetching &&
+    !ordersList?.length &&
+    filter === OrderItemStatusEnum.Processing
+  )
+    return <EmptyList type="orders" />;
 
   return (
     <>
@@ -32,6 +37,15 @@ export default function OrdersContent() {
             order={order}
           />
         ))}
+        {!isFetching &&
+          !ordersList?.length &&
+          filter !== OrderItemStatusEnum.Processing && (
+            <EmptyList
+              type="orders-filter"
+              buttonAction={() => setFilter(OrderItemStatusEnum.Processing)}
+            />
+          )}
+
         {currentPage?.hasNextPage && (
           <Button
             onClick={() => fetchNextPage()}

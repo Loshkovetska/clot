@@ -22,11 +22,10 @@ type CartSummaryType = {
 
 type CartItemType = {
   combination: CombinationType;
-  id: string;
+  id?: string;
   product: ProductType;
-  user_id: string;
   amount: number;
-  coupon: {
+  coupon?: {
     discount: number;
   };
 };

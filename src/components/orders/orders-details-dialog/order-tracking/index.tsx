@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 import { CheckIcon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { TrackingType } from "@/types/order";
@@ -11,24 +13,22 @@ export default function OrderTracking({
     <div className="flex flex-col gap-[50px]">
       {tracking.map((trackItem) => (
         <div
-          className="flex items-center justify-between"
+          className={cn(
+            "flex items-center justify-between",
+            trackItem.date ? "" : "opacity-30"
+          )}
           key={trackItem.status}
         >
           <div className="flex items-center gap-3">
-            <div
-              className={cn(
-                "flex size-6 items-center justify-center rounded-full",
-                trackItem.date
-                  ? "bg-primary"
-                  : "border border-light-100 bg-white"
-              )}
-            >
-              {trackItem.date && <CheckIcon />}
+            <div className="flex size-6 items-center justify-center rounded-full bg-primary">
+              <CheckIcon />
             </div>
             <span className="text-md">{trackItem.status}</span>
           </div>
           {trackItem.date && (
-            <span className="text-sm">{trackItem.date.toString()}</span>
+            <span className="text-sm">
+              {dayjs(trackItem.date).format("DD MMMM")}
+            </span>
           )}
         </div>
       ))}

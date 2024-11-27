@@ -4,11 +4,14 @@ import { toast } from "sonner";
 
 import Counter from "@/components/common/counter";
 import useCart from "@/lib/hooks/useCart";
+import { cn } from "@/lib/utils";
 import { getCartItemInfo } from "@/lib/utils/cart";
 import { CartItemType } from "@/types/cart";
 
-export default function CartItem(cartItem: CartItemType) {
-  const { product, amount } = cartItem;
+export default function CartItem(
+  cartItem: CartItemType & { isOrderItem?: boolean }
+) {
+  const { product, amount, isOrderItem = false } = cartItem;
 
   const { updateCart, deleteCartItems, isPending } = useCart({
     enabled: false,
@@ -28,16 +31,22 @@ export default function CartItem(cartItem: CartItemType) {
         return deleteCartItems({ id: cartItem.id });
       }
 
-      updateCart({
-        id: cartItem.id,
-        amount: amount + num,
-      });
+      cartItem.id &&
+        updateCart({
+          id: cartItem.id,
+          amount: amount + num,
+        });
     },
     [amount, availableAmount, cartItem, updateCart, deleteCartItems]
   );
 
   return (
-    <div className="flex w-full items-center gap-3 rounded-lg bg-light-100 p-2">
+    <div
+      className={cn(
+        "flex w-full items-center gap-3 rounded-lg p-2",
+        isOrderItem ? "bg-white" : "bg-light-100"
+      )}
+    >
       <div className="relative h-16 min-w-16 max-w-16 overflow-hidden rounded-sm">
         <Image
           src={
@@ -64,13 +73,15 @@ export default function CartItem(cartItem: CartItemType) {
               </div>
             ))}
           </div>
-          <Counter
-            loading={isPending}
-            count={amount}
-            handleCountChange={handleUpdateAmount}
-            variant="icon-sm"
-            disabledPlus={amount === 5}
-          />
+          {!isOrderItem && (
+            <Counter
+              loading={isPending}
+              count={amount}
+              handleCountChange={handleUpdateAmount}
+              variant="icon-sm"
+              disabledPlus={amount === 5}
+            />
+          )}
         </div>
       </div>
     </div>

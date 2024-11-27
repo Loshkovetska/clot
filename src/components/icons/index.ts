@@ -12,7 +12,6 @@ import { JCBIcon } from "@/components/icons/jcb";
 import { MasterCardIcon } from "@/components/icons/mastercard";
 import { MinusIcon } from "@/components/icons/minus";
 import { NotificationIcon } from "@/components/icons/notifications";
-import { OrderIcon } from "@/components/icons/order";
 import { OrdersIcon } from "@/components/icons/orders";
 import { PlusIcon } from "@/components/icons/plus";
 import { ProfileIcon } from "@/components/icons/profile";
@@ -37,7 +36,6 @@ export {
   MasterCardIcon,
   MinusIcon,
   NotificationIcon,
-  OrderIcon,
   OrdersIcon,
   PlusIcon,
   ProfileIcon,

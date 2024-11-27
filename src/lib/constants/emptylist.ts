@@ -18,6 +18,12 @@ export const EMPTYLIST_DATA = {
     buttonTitle: "Explore Categories",
     buttonLink: ROUTES.categories,
   },
+  "orders-filter": {
+    title: "No Orders yet",
+    imageUrl: OrdersImage,
+    buttonTitle: "Explore Other filters",
+    buttonLink: "",
+  },
   cart: {
     title: "Your Cart is Empty",
     imageUrl: CartImage,

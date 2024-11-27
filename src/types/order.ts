@@ -1,5 +1,5 @@
 import { AddressType } from "@/types/address";
-import { ProductType } from "@/types/product";
+import { CombinationType, ProductType } from "@/types/product";
 
 type OrdersParams = {
   page: number;
@@ -37,11 +37,16 @@ type OrderItemType = {
   tracking: string;
   items: OrderCartItemType[];
   address: AddressType;
+  total_price: number;
+  total_tax: number;
+  total_unitprice: number;
+  total_shipping: number;
+  total_discount: number;
 };
 
 type OrderCartItemType = {
   product: ProductType;
-  combination: string;
+  combination: CombinationType;
   order_id: string;
   amount: number;
 };
@@ -50,7 +55,7 @@ enum OrderItemStatusEnum {
   "Processing" = "Processing",
   "Shipped" = "Shipped",
   "Returned" = "Returned",
-  "Cancelled" = "Cancelled",
+  "Canceled" = "Canceled",
 }
 
 type OrderItemStatusType = keyof typeof OrderItemStatusEnum;

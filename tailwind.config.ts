@@ -34,6 +34,7 @@ export default {
         "white-50": "rgba(255,255,255,0.5)",
         "black-50": "rgba(39,39,39,0.5)",
         "black-100": "#272727",
+        "light-50": "#FAFAFA",
         "light-100": "#F4F4F4",
         "success-light": "#5FB567",
         card: {
