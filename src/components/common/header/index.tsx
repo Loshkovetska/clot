@@ -19,6 +19,7 @@ type HeaderPropType = {
   }[];
   className?: string;
   backButtonClassName?: string;
+  hideBackButton?: boolean;
   backButtonAction?: () => void;
 } & PropsWithChildren;
 
@@ -30,6 +31,7 @@ export default function Header({
   className,
   backButtonClassName,
   children,
+  hideBackButton,
   backButtonAction,
 }: HeaderPropType) {
   return (
@@ -44,25 +46,23 @@ export default function Header({
       )}
     >
       {showUser && <UserAvatar />}
-      {!showUser && (
+      {!showUser && !hideBackButton && (
         <BackButton
           className={cn("absolute left-5 mb-0", backButtonClassName)}
           action={backButtonAction}
         />
       )}
-      {title && (
-        <span
-          className={cn(
-            "text-2xl",
-            {
-              "text-md font-bold": !showUser,
-            },
-            titleClassName
-          )}
-        >
-          {title}
-        </span>
-      )}
+      <span
+        className={cn(
+          "text-2xl",
+          {
+            "text-md font-bold": !showUser,
+          },
+          titleClassName
+        )}
+      >
+        {title}
+      </span>
       {children}
       {funcButtons && (
         <div className="flex items-center gap-2">

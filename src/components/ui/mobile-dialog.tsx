@@ -38,7 +38,9 @@ export default function MobileDialog({
       <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          {title && <SheetTitle className="text-2xl">{title}</SheetTitle>}
+          {title && (
+            <SheetTitle className="text-center text-2xl">{title}</SheetTitle>
+          )}
           {description && <SheetDescription>{description}</SheetDescription>}
         </SheetHeader>
         <ScrollArea

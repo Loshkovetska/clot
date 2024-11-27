@@ -53,6 +53,7 @@ const useCart = ({ enabled, onApplySuccess }: UseCartProps) => {
   }
 
   return {
+    appliedDiscount: data?.appliedDiscount,
     cartItems: data?.cartItems || [],
     cartSummary: data?.cartSummary,
     isLoading,

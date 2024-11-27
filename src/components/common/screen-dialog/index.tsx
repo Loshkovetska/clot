@@ -13,7 +13,7 @@ import {
 type ScreenDialogPropType = {
   trigger: React.ReactNode;
   title: string;
-  buttonsBlock: React.ReactNode[] | React.ReactNode;
+  buttonsBlock?: React.ReactNode[] | React.ReactNode;
   open?: boolean;
   onOpenChange?: (flag: boolean) => void;
 } & PropsWithChildren;
@@ -53,7 +53,7 @@ export default function ScreenDialog({
           />
         </DialogHeader>
         <div className="px-6">{children}</div>
-        <DialogFooter>{buttonsBlock}</DialogFooter>
+        {buttonsBlock && <DialogFooter>{buttonsBlock}</DialogFooter>}
       </DialogContent>
     </Dialog>
   );

@@ -17,7 +17,7 @@ export default function CouponBlock() {
     applyCoupon({
       coupon: value,
     });
-  }, [value]);
+  }, [value, applyCoupon]);
   return (
     <Input
       className="h-14"

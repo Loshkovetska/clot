@@ -9,6 +9,7 @@ type AddToCartParams = {
 type CartResponseType = {
   cartItems: CartItemType[];
   cartSummary: CartSummaryType;
+  appliedDiscount: boolean;
 };
 
 type CartSummaryType = {
@@ -20,13 +21,14 @@ type CartSummaryType = {
 };
 
 type CartItemType = {
-  amount: number;
   combination: string;
   id: string;
   product: ProductType;
-  product_id: string;
   user_id: string;
-  discount: number;
+  amount: number;
+  coupon: {
+    discount: number;
+  };
 };
 
 type UpdateCartParams = {

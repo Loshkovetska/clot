@@ -1,3 +1,5 @@
+import { AddressType } from "@/types/address";
+
 export const formatePhoneNumber = (value: string) => {
   const cleaned = value.replace(/\D/g, "");
   const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
@@ -44,3 +46,7 @@ export const formateCCV = (value: string) =>
 
 export const initials = (fname?: string | null, lname?: string | null) =>
   `${fname?.[0] || ""}${lname?.[0] || ""}`;
+
+export const getFullAddress = (address: AddressType) => {
+  return `${address?.street}, ${address?.city}, ${address?.state}, ${address?.post_code}`;
+};

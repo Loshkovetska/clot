@@ -33,7 +33,7 @@ export default function CartItem(cartItem: CartItemType) {
         amount: amount + num,
       });
     },
-    [cartItem, availableAmount]
+    [amount, availableAmount, cartItem, updateCart, deleteCartItems]
   );
 
   return (

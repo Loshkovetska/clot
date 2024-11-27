@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     const cart = await supabase
       .from("cart")
       .select(
-        "*, product:product_id(id, title, imageUrls, shippingCost, taxCost)"
+        "*, product:product_id(id, title, imageUrls, shippingCost, taxCost), coupon:coupon_id(id, discount)"
       )
       .eq("user_id", auth.userId);
 
@@ -25,9 +25,13 @@ export async function GET(req: NextRequest) {
     const response = {
       cartItems: cart.data.map((item) => {
         delete item.user_id;
+        delete item.created_at;
+        delete item.coupon_id;
+        delete item.product_id;
         return item;
       }),
       cartSummary: getCartSummary(cart.data),
+      appliedDiscount: !!getCartSummary(cart.data)?.discount,
     };
     return new NextResponse(JSON.stringify(response), { status: 200 });
   } catch (e) {
@@ -45,6 +49,7 @@ export async function POST(req: NextRequest) {
 
     const cart = await supabase.from("cart").insert({
       ...params,
+      coupon_id: null,
       user_id: auth.userId,
     });
 
@@ -97,7 +102,7 @@ export async function PUT(req: NextRequest) {
 
       cart = await supabase
         .from("cart")
-        .update({ discount: coupon.data.discount })
+        .update({ coupon_id: coupon.data.id })
         .eq("user_id", auth.userId);
     } else cart = await supabase.from("cart").update(copy).eq("id", params.id);
 

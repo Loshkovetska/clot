@@ -21,11 +21,11 @@ export default function Summary({
         <span className="text-md text-black-50">Tax</span>
         <span className="text-right text-md ">${taxCost.toFixed(2)}</span>
       </div>
-      {discount && (
+      {(discount || 0) > 0 && (
         <div className="flex items-center justify-between">
           <span className="text-md text-black-50">Discount</span>
           <span className="text-right text-md text-success-light">
-            -{discount.toFixed(2)}$
+            -{discount?.toFixed(2)}$
           </span>
         </div>
       )}

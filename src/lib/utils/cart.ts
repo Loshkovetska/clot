@@ -28,7 +28,7 @@ export const getCartSummary = (items?: CartItemType[]) => {
     return prevItem + currItem.product.shippingCost;
   }, 0);
 
-  const discount = items.find((item) => item.discount)?.discount || 0;
+  const discount = items.find((item) => item.coupon)?.coupon?.discount || 0;
 
   const oldPrice = subTotal + taxCost + shippingCost;
 

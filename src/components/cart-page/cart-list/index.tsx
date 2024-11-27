@@ -8,9 +8,12 @@ import { CartItemType } from "@/types/cart";
 export default function CartList({ items }: { items: CartItemType[] }) {
   const { deleteCartItems } = useCart({ enabled: false });
 
-  const handleDelete = useCallback((id?: string) => {
-    deleteCartItems({ id });
-  }, []);
+  const handleDelete = useCallback(
+    (id?: string) => {
+      deleteCartItems({ id });
+    },
+    [deleteCartItems]
+  );
 
   return (
     <div className="flex flex-col gap-4">

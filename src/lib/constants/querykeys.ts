@@ -9,4 +9,5 @@ export const QUERY_KEYS = {
   SEARCH: "SEARCH",
   ADDRESSES: "ADDRESSES",
   CARDS: "CARDS",
+  ORDERS: "ORDERS",
 };

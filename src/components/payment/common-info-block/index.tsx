@@ -1,10 +1,12 @@
 import React, { useMemo } from "react";
 
 import { ChevronLeftIcon } from "@/components/icons";
+import CommonSelectDialog from "@/components/payment/common-info-block/common-select-dialog";
 import { Button } from "@/components/ui/button";
 import { RadioGroupItem } from "@/components/ui/radiogroup";
 import { CARD_TYPES } from "@/lib/constants/cardtypes";
 import { getPaymentCardOutput } from "@/lib/utils/card";
+import { getFullAddress } from "@/lib/utils/string";
 import { AddressType } from "@/types/address";
 import { PaymentCardType } from "@/types/card";
 
@@ -43,9 +45,7 @@ export default function CommonInfoBlock({
           </span>
         )}
         {type === "address" && "street" in item && (
-          <span className="line-clamp-1 text-sm">
-            {item?.street}, {item?.city}, {item?.state},{item?.post_code}
-          </span>
+          <span className="line-clamp-1 text-sm">{getFullAddress(item)}</span>
         )}
         {type === "card" && (
           <div className="flex items-center gap-1">
@@ -56,7 +56,7 @@ export default function CommonInfoBlock({
               })}
           </div>
         )}
-        {variant === "profile" && (
+        {variant === "profile" && onUpdate && onDelete && (
           <div className="flex w-full items-center justify-end gap-1">
             <Button
               size="sm"
@@ -78,9 +78,14 @@ export default function CommonInfoBlock({
         )}
       </div>
       {variant === "payment" && (
-        <div className="flex -rotate-90 items-center justify-center">
-          <ChevronLeftIcon />
-        </div>
+        <CommonSelectDialog
+          trigger={
+            <div className="flex -rotate-90 cursor-pointer items-center justify-center">
+              <ChevronLeftIcon />
+            </div>
+          }
+          type={type}
+        />
       )}
     </div>
   );
