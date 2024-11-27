@@ -1,8 +1,8 @@
-import { ProductType } from "@/types/product";
+import { CombinationType, ProductType } from "@/types/product";
 
 type AddToCartParams = {
   product_id: string;
-  combination: string;
+  combination: CombinationType;
   amount: number;
 };
 
@@ -21,7 +21,7 @@ type CartSummaryType = {
 };
 
 type CartItemType = {
-  combination: string;
+  combination: CombinationType;
   id: string;
   product: ProductType;
   user_id: string;

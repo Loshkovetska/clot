@@ -12,10 +12,10 @@ export const getCartSummary = (items?: CartItemType[]) => {
     };
 
   const subTotal = items.reduce((prevItem, currItem) => {
-    const productVariant = JSON.parse(currItem.combination);
+    const productVariant = currItem.combination;
     const price = getProductPrice(
-      productVariant.price,
-      productVariant.discount
+      Number(productVariant.price),
+      Number(productVariant.discount || 0)
     );
     return prevItem + price * currItem.amount;
   }, 0);
@@ -41,15 +41,17 @@ export const getCartSummary = (items?: CartItemType[]) => {
     totalPrice,
     taxCost,
     shippingCost,
-    discount: getProductPrice(oldPrice, discount),
+    discount: discount ? getProductPrice(oldPrice, discount) : 0,
   };
 };
 
 export const getCartItemInfo = (cartItem: CartItemType) => {
-  const productVariant = JSON.parse(cartItem.combination);
+  const productVariant = cartItem.combination;
   const totalPrice =
-    getProductPrice(productVariant.price, productVariant.discount) *
-    cartItem.amount;
+    getProductPrice(
+      Number(productVariant.price),
+      Number(productVariant.discount || 0)
+    ) * cartItem.amount;
 
   const variant = Object.entries(productVariant)
     .filter(([key]) => !["amount", "price", "discount"].includes(key))

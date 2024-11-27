@@ -13,9 +13,8 @@ export default function FilterItem({
   title,
   filterKey,
   chosenFilters,
-  isDesktop,
   handleValueChange,
-}: FilterItemPropType & { isDesktop: boolean }) {
+}: FilterItemPropType) {
   const [dialogOpen, setOpen] = useState(false);
   const [priceValues, setValues] = useState({
     min: chosenFilters["price"]?.min || 0,
@@ -54,7 +53,7 @@ export default function FilterItem({
       title={title}
       trigger={
         <Button
-          size={isDesktop ? undefined : "sm"}
+          size="default_sm"
           variant={chosenFilters[filterKey] ? "default" : "outline"}
           className="rounded-[100px]"
         >

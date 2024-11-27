@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
 
     //FILTER BY CATEGORY
     if (params.slug) {
-      request = request.filter("categories.slug", "eq", params.slug);
+      request = request.filter("category_slug", "eq", params.slug);
     }
     //FILTER BY QUERY
     if (params.q) {

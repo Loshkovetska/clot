@@ -24,6 +24,8 @@ const buttonVariants = cva(
         lg: "h-14 overflow-hidden rounded-[100px] px-4 py-2",
         icon: "size-10 rounded-full",
         "icon-sm": "size-6 rounded-full",
+        default_sm:
+          "lg:h-10 lg:px-4 lg:py-2 h-8 gap-1 px-2 py-1.5 max-lg:text-sm",
       },
     },
     defaultVariants: {

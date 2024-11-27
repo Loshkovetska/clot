@@ -47,15 +47,32 @@ export async function POST(req: NextRequest) {
     const auth = validateUser(req);
     if (auth instanceof NextResponse) return auth;
 
-    const cart = await supabase.from("cart").insert({
-      ...params,
-      coupon_id: null,
-      user_id: auth.userId,
-    });
+    const inCart = await supabase
+      .from("cart")
+      .select()
+      .eq("user_id", auth.userId)
+      .eq("product_id", params.product_id)
+      .single();
 
-    if (cart.error) {
-      throw new Error("Can't add a product to shop cart");
+    if (inCart.data) {
+      console.log(typeof inCart.data.combination);
+      // inInCart
+      // const updatedCart = await supabase.from("cart").update({
+      //   amount:
+      // });
     }
+
+    if (!inCart.data) {
+      const cart = await supabase.from("cart").insert({
+        ...params,
+        coupon_id: null,
+        user_id: auth.userId,
+      });
+      if (cart.error) {
+        throw new Error("Can't add a product to shop cart");
+      }
+    }
+
     return new NextResponse(JSON.stringify("OK"), { status: 200 });
   } catch (e) {
     return new NextResponse(JSON.stringify(e), { status: 500 });

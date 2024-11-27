@@ -67,7 +67,7 @@ export default function ProductMainInfo({ product }: { product: ProductType }) {
     mutate({
       amount,
       product_id: product.id,
-      combination: JSON.stringify(currentCombination),
+      combination: currentCombination,
     });
   }, [currentCombination, amount, product, mutate]);
   return (
