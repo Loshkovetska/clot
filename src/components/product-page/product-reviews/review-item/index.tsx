@@ -13,7 +13,7 @@ export default function ReviewItem({ review }: { review: ReviewType }) {
     <div className="flex flex-col gap-1">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="relative size-10 rounded-full">
+          <div className="relative size-10 overflow-hidden rounded-full">
             <Image
               src={review?.user?.imageUrl ?? ""}
               alt="review"
@@ -26,7 +26,10 @@ export default function ReviewItem({ review }: { review: ReviewType }) {
         </div>
         <div className="flex items-center">
           {stars.map((star, ind) => (
-            <StarIcon key={star + ind} />
+            <StarIcon
+              key={star + ind}
+              className={review.rate >= ind + 1 ? "[&>*]:fill-primary" : ""}
+            />
           ))}
         </div>
       </div>

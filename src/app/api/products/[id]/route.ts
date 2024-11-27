@@ -25,9 +25,17 @@ export async function GET(req: NextRequest, context: any) {
       .eq("user_id", params.param)
       .single();
 
+    const canBeRated = await supabase
+      .from("orders")
+      .select("items:order_items(product_id), address:address_id(user_id)")
+      .filter("items", "not.is", null)
+      .eq("items.product_id", product.data.id)
+      .eq("address.user_id", params.param);
+
     const response = {
       ...product.data,
       isFavorite: !!isFav.data,
+      canBeRated: !!canBeRated.data?.length,
     };
 
     return new NextResponse(JSON.stringify(response), { status: 200 });

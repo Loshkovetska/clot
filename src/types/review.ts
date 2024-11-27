@@ -11,7 +11,7 @@ type ReviewType = {
   };
   rate: number;
   text: string;
-  date: Date;
+  date: string;
 };
 
 type AddReviewParams = {
@@ -19,6 +19,8 @@ type AddReviewParams = {
   text: string;
   rate: number;
   date: Date;
+  totalReviews: number;
+  productRate: number;
 };
 
 type AddReviewFormType = z.infer<typeof addReviewScheme>;

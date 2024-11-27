@@ -11,7 +11,7 @@ type AddOrderParams = {
   card_id: string;
   items: {
     product_id: string;
-    combination: string;
+    combination: CombinationType;
     amount: number;
   }[];
   total_price: number;

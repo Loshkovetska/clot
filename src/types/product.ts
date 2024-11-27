@@ -13,6 +13,7 @@ type ProductType = {
   category_id: string;
   variants: ProductVariantType[];
   isFavorite: boolean;
+  canBeRated?: boolean;
 };
 
 type ProductVariantType = {

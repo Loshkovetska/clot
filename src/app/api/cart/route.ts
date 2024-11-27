@@ -55,7 +55,6 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (inCart.data) {
-      console.log(typeof inCart.data.combination);
       // inInCart
       // const updatedCart = await supabase.from("cart").update({
       //   amount:

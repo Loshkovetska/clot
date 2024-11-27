@@ -43,6 +43,7 @@ export default function ProductContent({ product }: { product: ProductType }) {
           id={product.id}
           rating={product.rate}
           totalReviews={product.totalReviews}
+          canBeRated={product.canBeRated}
         />
       </div>
     </>

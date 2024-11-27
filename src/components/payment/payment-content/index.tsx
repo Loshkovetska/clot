@@ -1,5 +1,6 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
+import { redirect } from "next/navigation";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
@@ -7,14 +8,16 @@ import BottomBar from "@/components/common/bottom-bar";
 import CommonInfoBlock from "@/components/payment/common-info-block";
 import SuccessfullPayment from "@/components/payment/successfull-payment";
 import Summary from "@/components/summary";
+import { ROUTES } from "@/lib/constants/routes";
 import { useAddress } from "@/lib/hooks/useAddress";
 import useCart from "@/lib/hooks/useCart";
 import { usePaymentCard } from "@/lib/hooks/usePaymentCard";
+import NotificationService from "@/services/notification.service";
 import OrderService from "@/services/order.service";
 import { AddOrderParams } from "@/types/order";
 
 export default function PaymentContent() {
-  const { cartSummary, cartItems } = useCart({ enabled: true });
+  const { cartSummary, cartItems, isLoading } = useCart({ enabled: true });
   const { selectedAddress } = useAddress({ enabled: true });
   const { selectedCard } = usePaymentCard({ enabled: true });
 
@@ -22,7 +25,10 @@ export default function PaymentContent() {
 
   const { mutate: confirmOrder, isPending } = useMutation({
     mutationFn: (params: AddOrderParams) => OrderService.createOrder(params),
-    onSuccess: () => setSuccessful(true),
+    onSuccess: () => {
+      setSuccessful(true);
+      NotificationService.postNotification();
+    },
     onError: () => toast.error("Something went wrong!"),
   });
 
@@ -47,6 +53,9 @@ export default function PaymentContent() {
     return <SuccessfullPayment />;
   }
 
+  if (!isLoading && !cartItems.length) {
+    redirect(ROUTES.categories);
+  }
   return (
     <>
       <div className="flex flex-col gap-4 pt-10">

@@ -21,10 +21,18 @@ import { AddReviewFormType, AddReviewParams } from "@/types/review";
 
 type AddReviewDialogPropType = {
   product_id: string;
+  canBeRated?: boolean;
+  productRate: number;
+  totalReviews: number;
+  onRefetch: () => void;
 };
 
 export default function AddReviewDialog({
   product_id,
+  canBeRated,
+  productRate,
+  totalReviews,
+  onRefetch,
 }: AddReviewDialogPropType) {
   const [isOpen, setOpen] = useState(false);
   const form = useForm({
@@ -37,7 +45,11 @@ export default function AddReviewDialog({
 
   const { mutate, isPending } = useMutation({
     mutationFn: (params: AddReviewParams) => ProductService.addReview(params),
-    onSuccess: () => setOpen(false),
+    onSuccess: () => {
+      setOpen(false);
+      form.reset();
+      onRefetch();
+    },
   });
 
   const addReview = useCallback(
@@ -47,11 +59,11 @@ export default function AddReviewDialog({
         text: values.text || "",
         product_id,
         date: new Date(),
+        productRate,
+        totalReviews,
       });
-
-      form.reset();
     },
-    [product_id, form, mutate]
+    [product_id, productRate, totalReviews, mutate]
   );
 
   const handleDialogState = useCallback(
@@ -67,7 +79,10 @@ export default function AddReviewDialog({
       onOpenChange={handleDialogState}
       title="Rate Product"
       trigger={
-        <Button className="max-w-[240px]">
+        <Button
+          className="max-w-[240px]"
+          disabled={!canBeRated}
+        >
           <StarIcon /> Add Review
         </Button>
       }
