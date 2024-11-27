@@ -20,7 +20,7 @@ export default function ProductReviews({
   id,
   canBeRated,
 }: ProductReviewsPropType) {
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(3);
 
   const {
     data: reviews = [],
@@ -29,7 +29,6 @@ export default function ProductReviews({
   } = useQuery({
     queryKey: [QUERY_KEYS.PRODUCT_REVIEWS, id],
     queryFn: () => ProductService.getProductReviewsById(id),
-    enabled: !!totalReviews,
   });
 
   const sumRate = useMemo(
@@ -37,32 +36,46 @@ export default function ProductReviews({
     [reviews]
   );
 
+  const productRate = useMemo(
+    () => sumRate / (reviews.length || totalReviews),
+    [sumRate, reviews, totalReviews]
+  );
+
+  const reviewsList = useMemo(
+    () => reviews?.slice(0, showAll) || [],
+    [showAll, reviews]
+  );
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3">
         <h2 className="text-md font-bold">Reviews</h2>
-        <span className="text-2xl font-bold">{rating} Ratings</span>
-        <span className="text-sm text-black-50">{totalReviews} Reviews</span>
+        <span className="text-2xl font-bold">
+          {(productRate || rating).toFixed(1)} Ratings
+        </span>
+        <span className="text-sm text-black-50">
+          {reviews.length || totalReviews} Reviews
+        </span>
         <AddReviewDialog
           product_id={id}
           canBeRated={canBeRated}
           totalReviews={totalReviews}
           productRate={sumRate}
-          onRefetch={() => refetch()}
+          onRefetch={refetch}
         />
       </div>
       {!isLoading &&
         (reviews?.length ? (
-          <div className="flex flex-col gap-3">
-            {reviews?.map((review) => (
+          <div className="mt-5 flex flex-col gap-3">
+            {reviewsList?.map((review) => (
               <ReviewItem
                 key={review.id}
                 review={review}
               />
             ))}
-            {!showAll && reviews?.length > 5 && (
+            {!(showAll >= reviews.length) && (
               <Button
-                onClick={() => setShowAll(true)}
+                onClick={() => setShowAll((prev) => prev * 2)}
                 className="mx-auto w-full max-w-[320px]"
               >
                 Show All Reviews

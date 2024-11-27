@@ -26,7 +26,7 @@ export default async function Page({ params }: { params: any }) {
 
   return (
     product?.state?.data && (
-      <ProductContent product={product?.state?.data as ProductType} />
+      <ProductContent {...(product?.state?.data as ProductType)} />
     )
   );
 }

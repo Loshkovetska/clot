@@ -1,4 +1,5 @@
 "use client";
+
 import Header from "@/components/common/header";
 import ProductCarousel from "@/components/product-page/product-carousel";
 import ProductInfo from "@/components/product-page/product-info";
@@ -8,12 +9,13 @@ import { ROUTES } from "@/lib/constants/routes";
 import { useWishlist } from "@/lib/hooks/useWishlist";
 import { ProductType } from "@/types/product";
 
-export default function ProductContent({ product }: { product: ProductType }) {
+export default function ProductContent(product: ProductType) {
   const { addProductToFav, isFav } = useWishlist({
     isFavorite: product.isFavorite,
     product_id: product.id,
     combinations: product.combinations,
   });
+
   return (
     <>
       <Header
